@@ -1,6 +1,30 @@
 本项目主要收录个人的一些小脚本
+
 1、chsdir目录
     中文目录名,文件名TAB支持
     用拼音补全命令行中的中文名称和路径
     安装见目录内的README
 
+2、ptree ftree
+    安装见tree目录,能够分别列出文件数和目录树
+
+    文件数例子:
+        |---sub.o
+        |---makefile
+        |---mult.o
+        |---add.o
+        |---src
+        |    |---sub.c
+        |    |---main.c
+        |    |---mult.c
+        |    |---add.c
+        |    |---div.c
+        |    |---.add.c.swp
+        |---div.o
+        |---include
+        |      |---defs.h
+        |---prog
+
+    目录树例子:
+    |---src
+    |---include
