@@ -28,3 +28,6 @@
     目录树例子:
     |---src
     |---include
+
+3、xmonad
+    xmonad.hs  xmonad的配置文件(以硬连接的方式链接到 ~/.xmonad/xmonad.hs
