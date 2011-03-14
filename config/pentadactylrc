@@ -1,0 +1,86 @@
+"1.0b5.1 (created: 2011/03/9 20:42:05)
+
+loadplugins '\.(js|penta)$'
+
+"ts 打开英文到中文翻译网页
+command! -nargs=* ts open http://translate.google.com/#en%7Czh-CN%7C <args>
+map -modes=n,v -silent ts :exe<Space>":ts<Space>"+content.getSelection()<Return>
+
+"cts 打开中文到英文翻译网页
+command! -nargs=* cts open http://translate.google.com/#zh-CN%7Cen%7C <args>
+map -modes=n,v -silent cts :exe<Space>":cts<Space>"+content.getSelection()<Return>
+
+"dict 打开dict.cn翻译网页
+command! -nargs=* dict open http://dict.cn/<args>
+
+"gs 打开google 中文搜索网页
+command! -nargs=* gs open http://www.google.com.hk/search?9&q=<args>
+map -modes=n,v -silent gs :exe<Space>":gs<Space>"+content.getSelection()<Return>
+
+"jk 加快上下翻页的速度
+map -modes=n,v j -builtin 5j
+map -modes=n,v k -builtin 5k
+
+"S 自动重新调入配置文件
+map -modes=n,v S :so<Space>"~/.pentadactylrc"<Return>
+
+"HL 切换标签
+map -modes=n,v H -builtin gT
+map -modes=n,v L -builtin gt
+
+"JK 前进后退
+map -modes=n,v J :ba<Return>
+map -modes=n,v K :fo<Return>
+
+"ctrl+up ctrl+down 切换浏览器的菜单
+map -modes=n,v <C-Up> :se<Space>go=mnT<Return>
+map -modes=n,v <C-Down> :se<Space>go=rbsN<Return>：
+
+"b1 b2 设置快捷键自动打开网址
+map -modes=n,v -silent b1 :tabopen<Space>http://www.xs111.com/yishixiejun/<Space><Return>
+map -modes=n,v -silent b2 :tabopen<Space>http://www.xs111.com/doupocangqiong/<Space><Return>
+
+"在标签上显示数字，方便使用b+<num>来选择特定标签
+:set guioptions=rbsN
+
+"Next Page and Previous Page超级的下一页,基本上是够用了.快捷键是[[和]]
+set nextpattern=\s*下一页|下一章|下一张|下一篇|下页|后页\s*,^\bnext\b,\\bnext\\b,^>$,^(>>|»)$,^(>|»),(>|»)$,\\bmore\\b
+set previouspattern=\s*上一页|上一章|上一张|上一篇|上页|前页\s*,^\bprev|previous\b,\\bprev|previous\\b,^<$,^(<<|«)$,^(<|«),(<|«)$
+
+
+" vim: set ft=pentadactyl:
+
+" Theme {
+highlight StatusLine color: black; background:transparent; font-weight:bold;
+highlight CmdLine color:#d8d8d8; background:#2b2b2b;
+highlight ModeMsg color:darkgreen; background: white;font-weight:bold;
+highlight ErrorMsg font-weight:normal; color:red; background:white;
+hi Hint font-family: monospace; font-size: 9px; text-transform: uppercase; color: white; background-color: #1E90FF; padding:1px;
+hi HintElem clear
+" }
+
+" noscirpt 脚本的配置
+" 允许脚本
+map <A-s> :set nss!=<A-Tab>
+" 禁止脚本
+map <A-C-s> :set nsu!=<A-Tab>
+" 临时禁止脚本
+map <A-S-s> :set nst!=<A-Tab>
+
+" 设置提示链接不用12345
+"set hintkeys=asdfg;lkjh
+
+" 搜索时关闭输入法
+style -name commandline-ime chrome://* #dactyl-commandline-command input {ime-mode: inactive;}
+
+hi Hint text-transform: uppercase;font-family: "Times New Roman"; font-size: 14px; font-weight: bold; color: white !important; background-color: rgba(0, 0, 0, 0.5) !important; border: solid 1px red !important;
+hi Hint::after content: attr(number) !important;
+hi HintActive background: blue !important; color: #ffffff !important;
+hi HintElem background-color: inherit !important; "#ffffff !important; "font-color: #ffffff !important;
+hi HintImage opacity: .5;
+
+"StatusLine settings
+hi StatusLine color: #00ff00 !important; background-color: white !important; font-weight: bold !important; "font-size: 9pt !important;
+hi StatusLineBroken color: #000000 !important; background: #afafff !important; "font-size: 9pt !important;
+hi StatusLineSecure color: #000000 !important; background: #afffaf !important; "font-size: 9pt !important;
+

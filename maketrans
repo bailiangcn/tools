@@ -1,0 +1,50 @@
+#!/bin/bash
+#===============================================================================
+#
+#          FILE:  makeres
+# 
+#         USAGE:  ./makeres 
+# 
+#   DESCRIPTION:  用于替换机密字段来生成本地文件
+#                 同目录中secret.txt.template文件为密码替换模板
+#                 把 secret.txt.template 拷贝成 secret.txt,并根据
+#                 实际情况填入相应的值
+#                 同目录中file.list文件为替换文件目录
+# 
+#        AUTHOR:  BaiLiang , bailiangcn@gmail.com
+#       COMPANY:  DQYTV
+#       VERSION:  1.0
+#       CREATED:  2011-03-16 14:24:21
+#===============================================================================
+
+read_replace_var() {
+    echo "开始转换"
+    while read x y; do
+        str="s/$x/$y/g"
+        echo "$str" >>tmpsedcommand.sed
+    done 
+} 
+
+read_filename() {
+    while read soufile desfile; do
+        s=`echo "$soufile" | sed -e 's/\\\\\//\//g'`
+        d=`echo "$desfile" | sed -e 's/\\\\\//\//g'`
+        echo "正在转换文件: $s -> ${d}.tmp"
+        sed -f tmpsedcommand.sed "$s" > "${d}"
+    done
+
+}
+
+#清空临时命令文件
+cat /dev/null >  tmpsedcommand.sed
+
+#清除注释、空行、替换/符号为\/
+# 生成sed 命令文件
+sed -e '/^\s*--/d' -e '/^\s*$/d' secret.txt -e 's/\//\\\\\//g'| read_replace_var 
+
+# 逐个读入文件
+sed -e '/^\s*--/d' -e '/^\s*$/d' -e 's/\//\\\\\//g' file.list | read_filename
+
+
+rm tmpsedcommand.sed
+

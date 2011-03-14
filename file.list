@@ -1,0 +1,14 @@
+-- 用于处理的文件列表
+-- 表示该行为注释
+-- 请注意文件名内部不要有空格
+　
+
+-- 格式说明
+-- 源文件    目的文件
+./bin/editconfig   ./tmp/reseditconfig
+./bin/gmail.sh     ./tmp/resgmail.sh
+./bin/panther      ./tmp/panther
+./bin/xpoffice      ./tmp/xpoffice
+./bin/sudodmenu      ./tmp/sudodmenu
+./bin/rtx.sh      ./tmp/rtx.sh
+

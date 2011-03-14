@@ -1,0 +1,47 @@
+#!/bin/bash
+#===============================================================================
+#
+#          FILE:  editconfig
+# 
+#         USAGE:  ./editconfig
+# 
+#   DESCRIPTION:  编辑本地的配置文件
+# 
+#        AUTHOR:  BaiLiang , bailiangcn@gmail.com
+#       COMPANY:  DQYTV
+#       VERSION:  1.0
+#       CREATED:  2011-03-12 09:31:27
+#   Last Change:  2011年03月14日 11时39分30秒
+#===============================================================================
+
+home="##HOME##"
+
+prog="
+editconfig
+bashrc
+xmonad.hs
+xmobarrc
+pentadactyl
+checkgmail
+xmonad.start
+sudomenu
+1gmusic
+"
+
+cmd=$(dmenu -b -fn \*-16 -nb 'Aquamarine3' -nf 'black' -sb 'black' -sb 'black' -sf 'green' -p '请选择修改文件' <<< "$prog")
+
+if [ 0 -ne ${#cmd} ]; then
+    case ${cmd%% *} in
+        editconfig)    exec vim "$home""bin/editconfig" ;;
+        bashrc)        exec vim "$home"".bashrc"    ;;
+        xmonad.hs)     exec vim "$home"".xmonad/xmonad.hs" ;;
+        xmobarrc)      exec vim "$home"".xmobarrc" ;;
+        pentadactyl)   exec vim "$home"".pentadactylrc" ;;
+        checkgmail)    exec vim "$home""bin/gmail.sh" ;;
+        xmonad.start)  exec sudo vim "/usr/local/bin/xmonad.start" ;;
+        sudomenu)      exec vim "$home""bin/sudodmenu" ;;
+        1gmusic)       exec vim "$home""bin/music1g" ;;
+        
+        *)             exec "'${cmd}'" ;;
+    esac
+fi
