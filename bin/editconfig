@@ -35,20 +35,22 @@ cmd=$(dmenu -b -fn \*-16 -nb 'Aquamarine3' -nf 'black' -sb 'black' -sb 'black' -
 
 if [ 0 -ne ${#cmd} ]; then
     case ${cmd%% *} in
-        editconfig)    exec vim "${home}/tools/bin/editconfig" ;;
-        bashrc)        exec vim "${home}/.bashrc"    ;;
-        xmonad.hs)     exec vim "${home}/.xmonad/xmonad.hs" ;;
-        xmobarrc)      exec vim "${home}/.xmobarrc" ;;
-        pentadactyl)   exec vim "${home}/.pentadactylrc" ;;
-        checkgmail)    exec vim "${home}/tools/bin/gmail.sh" ;;
-        xmonad.start)  exec sudo vim "/usr/local/bin/xmonad.start" ;;
-        sudomenu)      exec vim "${home}/tools/bin/sudodmenu" ;;
-        1gmusic)       exec vim "${home}/bin/music1g" ;;
-        filelist)      exec vim "${home}/tools/file.list" ;;
-        secret.txt)    exec vim "${home}/tools/secret.txt" ;;
-        maketrans)     exec vim "${home}/tools/maketrans" ;;
+        editconfig)     vim "${home}/tools/bin/editconfig" && maketrans;;
+        checkgmail)     vim "${home}/tools/bin/gmail.sh" && maketrans;;
+        sudomenu)       vim "${home}/tools/bin/sudodmenu" && maketrans;;
+
+        bashrc)         vim "${home}/.bashrc"    ;;
+        xmonad.hs)      vim "${home}/.xmonad/xmonad.hs" ;;
+        xmobarrc)       vim "${home}/.xmobarrc" ;;
+        pentadactyl)    vim "${home}/.pentadactylrc" ;;
+        1gmusic)        vim "${home}/bin/music1g" ;;
+        filelist)       vim "${home}/tools/file.list" ;;
+        maketrans)      vim "${home}/tools/maketrans" ;;
+        secret.txt)     vim "${home}/tools/secret.txt" ;;
+
+        xmonad.start)   sudo vim "/usr/local/bin/xmonad.start" ;;
         
-        *)             exec "'${cmd}'" ;;
+        *)              "'${cmd}'" ;;
     esac
     
 fi

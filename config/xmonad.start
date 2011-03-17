@@ -27,6 +27,6 @@ feh --bg-tile /usr/share/backgrounds/InthedarkRedux.jpg  &
 nautilus --no-desktop -n &
 
 #启动腾讯通
-/home/bl/bin/rtx.sh &
+#/home/bl/bin/rtx.sh &
 
 exec xmonad
