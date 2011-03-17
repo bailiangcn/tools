@@ -241,7 +241,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     ,((modMask .|. shiftMask, xK_p), spawn "gksudo   /home/bl/bin/sudodmenu")
 
     -- mod+F2 打开编辑文件菜单
-    ,((modMask,     xK_F2    ), spawn  (myTerminal ++ " -e sh -c '/home/bl/tools/bin/editconfig'"))
+    ,((modMask,     xK_F2    ), spawn  (myTerminal ++ " -e sh -c '/home/bl/bin/editconfig'"))
 
     -- GridSelect
     -- mod+g  表格选择的方式选择工作区(不能显示中文)

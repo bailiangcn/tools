@@ -37,23 +37,27 @@ read_replace_var() {
 #   DESCRIPTION: 循环读入每一行文件名进行替换 
 #===============================================================================
 read_filename() {
-    rootpath=$(cd "$(dirname "$0")"; pwd)
     while read soufile desfile; do
         case "${soufile:0:3}" in
             "###")
-                echo $rootpath
                 s=${soufile#*\#\#\#}
                 s=${s//\\/}
-                d=/tmp/${s##*\/}
-                echo "make ln $rootpath$s -> $d" 
+                d=./tmp/${s##*\/}
+                echo "make ln $s -> $d" 
                 if [ -f "$d" ]; then
                     rm  $d
                 fi
-                ln -s $s $d
+                ln -sf .$s $d
                 ;;
-
             "#S#")
-                echo "root make ln" 
+                s=${soufile#*\#S\#}
+                s=${s//\\/}
+                d=./tmp/${s##*\/}
+                echo "root make ln $s -> $d" 
+                if [ -f "$d" ]; then
+                    rm  $d
+                fi
+                sudo ln -sf .$s $d
                 ;;
             *)
                 s=`echo "$soufile" | sed -e 's/\\\\\//\//g'`
@@ -68,6 +72,9 @@ read_filename() {
 #-------------------------------------------------------------------------------
 #   main 部分
 #-------------------------------------------------------------------------------
+
+cd "$(dirname "$0")"
+
 #清空临时命令文件
 cat /dev/null >  tmpsedcommand.sed
 

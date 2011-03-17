@@ -6,7 +6,7 @@
 　
 
 -- 格式说明
--- 源文件                          目的文件
+-- 源文件(相对路径)               目的文件(绝对路径)
 
 -- 有敏感字段的运行文件
 ./bin/editconfig                ##HOME##/bin/editconfig
@@ -20,11 +20,7 @@
 ###./bin/dtree                  ##HOME##/bin/dtree
 ###./bin/ftree                  ##HOME##/bin/ftree
 ###./bin/music1g                ##HOME##/bin/music1g
-###./bin/panther                ##HOME##/bin/panther
-###./bin/rtx.sh                 ##HOME##/bin/rtx.sh
-###./bin/sudodmenu              ##HOME##/bin/sudodmenu
 ###./bin/xmonadprop.sh          ##HOME##/bin/xmonadprop.sh
-###./bin/xpoffice               ##HOME##/bin/xpoffice
 
 -- 不涉及敏感字段的普通配置文件
 ###./config/bashrc              ##HOME##/.bashrc

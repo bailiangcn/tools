@@ -32,15 +32,15 @@ cmd=$(dmenu -b -fn \*-16 -nb 'Aquamarine3' -nf 'black' -sb 'black' -sb 'black' -
 
 if [ 0 -ne ${#cmd} ]; then
     case ${cmd%% *} in
-        editconfig)    exec vim "$home""bin/editconfig" ;;
-        bashrc)        exec vim "$home"".bashrc"    ;;
-        xmonad.hs)     exec vim "$home"".xmonad/xmonad.hs" ;;
-        xmobarrc)      exec vim "$home"".xmobarrc" ;;
-        pentadactyl)   exec vim "$home"".pentadactylrc" ;;
-        checkgmail)    exec vim "$home""bin/gmail.sh" ;;
+        editconfig)    exec vim "${home}/tools/bin/editconfig" ;;
+        bashrc)        exec vim "${home}/.bashrc"    ;;
+        xmonad.hs)     exec vim "${home}/.xmonad/xmonad.hs" ;;
+        xmobarrc)      exec vim "${home}/.xmobarrc" ;;
+        pentadactyl)   exec vim "${home}/.pentadactylrc" ;;
+        checkgmail)    exec vim "${home}/tools/bin/gmail.sh" ;;
         xmonad.start)  exec sudo vim "/usr/local/bin/xmonad.start" ;;
-        sudomenu)      exec vim "$home""bin/sudodmenu" ;;
-        1gmusic)       exec vim "$home""bin/music1g" ;;
+        sudomenu)      exec vim "${home}/tools/bin/sudodmenu" ;;
+        1gmusic)       exec vim "${home}/bin/music1g" ;;
         
         *)             exec "'${cmd}'" ;;
     esac
