@@ -19,6 +19,11 @@
 #       CREATED:  2011-03-16 14:24:21
 #===============================================================================
 
+
+#===  FUNCTION  ================================================================
+#          NAME:  read_replace_var()
+#   DESCRIPTION:  用于构造需要的sed脚本 
+#===============================================================================
 read_replace_var() {
     echo "开始转换"
     while read x y; do
@@ -27,26 +32,54 @@ read_replace_var() {
     done 
 } 
 
+#===  FUNCTION  ================================================================
+#          NAME:  read_filename()
+#   DESCRIPTION: 循环读入每一行文件名进行替换 
+#===============================================================================
 read_filename() {
+    rootpath=$(cd "$(dirname "$0")"; pwd)
     while read soufile desfile; do
-        s=`echo "$soufile" | sed -e 's/\\\\\//\//g'`
-        d=`echo "$soufile" | sed -e 's/\\\\\//\//g' -e 's/^.*\///'`
-        echo "正在转换文件: $s -> ./tmp/${d}.tmp"
-        sed -f tmpsedcommand.sed "$s" > "./tmp/${d}.tmp"
-    done
+        case "${soufile:0:3}" in
+            "###")
+                echo $rootpath
+                s=${soufile#*\#\#\#}
+                s=${s//\\/}
+                d=/tmp/${s##*\/}
+                echo "make ln $rootpath$s -> $d" 
+                if [ -f "$d" ]; then
+                    rm  $d
+                fi
+                ln -s $s $d
+                ;;
 
+            "#S#")
+                echo "root make ln" 
+                ;;
+            *)
+                s=`echo "$soufile" | sed -e 's/\\\\\//\//g'`
+                d=`echo "$soufile" | sed -e 's/\\\\\//\//g' -e 's/^.*\///'`
+                echo "正在转换文件: $s -> /tmp/${d}.tmp"
+                sed -f tmpsedcommand.sed "$s" > "./tmp/${d}.tmp"
+            ;;
+        esac
+    done
 }
 
+#-------------------------------------------------------------------------------
+#   main 部分
+#-------------------------------------------------------------------------------
 #清空临时命令文件
 cat /dev/null >  tmpsedcommand.sed
 
 #清除注释、空行、替换/符号为\/
 # 生成sed 命令文件
 sed -e '/^\s*--/d' -e '/^\s*$/d' secret.txt -e 's/\//\\\\\//g'| read_replace_var 
+# 生成中间文件列表,替换文件列表中的敏感字段
+sed -e '/^\s*--/d' -e '/^\s*$/d' -f tmpsedcommand.sed file.list > tmpfilelist
 
 # 逐个读入文件
-sed -e '/^\s*--/d' -e '/^\s*$/d' -e 's/\//\\\\\//g' file.list | read_filename
-
+sed  -e 's/\//\\\\\//g' tmpfilelist | read_filename
 
 rm tmpsedcommand.sed
+rm tmpfilelist
 
