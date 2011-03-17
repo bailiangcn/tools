@@ -26,6 +26,9 @@ checkgmail
 xmonad.start
 sudomenu
 1gmusic
+filelist
+secret.txt
+maketrans
 "
 
 cmd=$(dmenu -b -fn \*-16 -nb 'Aquamarine3' -nf 'black' -sb 'black' -sb 'black' -sf 'green' -p '请选择修改文件' <<< "$prog")
@@ -41,7 +44,11 @@ if [ 0 -ne ${#cmd} ]; then
         xmonad.start)  exec sudo vim "/usr/local/bin/xmonad.start" ;;
         sudomenu)      exec vim "${home}/tools/bin/sudodmenu" ;;
         1gmusic)       exec vim "${home}/bin/music1g" ;;
+        filelist)      exec vim "${home}/tools/file.list" ;;
+        secret.txt)    exec vim "${home}/tools/secret.txt" ;;
+        maketrans)     exec vim "${home}/tools/maketrans" ;;
         
         *)             exec "'${cmd}'" ;;
     esac
+    
 fi

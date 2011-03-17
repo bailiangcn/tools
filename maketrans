@@ -50,7 +50,7 @@ read_filename() {
                 ;;
             "#S#")
                 s=${soufile#*\#S\#\.*}
-                s=${s//\\/}
+                s="$filepath${s//\\/}"
                 d=${desfile//\\/}
                 echo "root make ln $s -> $d" 
                 if [ -f "$d" ]; then
@@ -72,7 +72,7 @@ read_filename() {
 #   main 部分
 #-------------------------------------------------------------------------------
 
-cd "$(dirname "$0")"
+cd ~/tools/
 
 #清空临时命令文件
 cat /dev/null >  tmpsedcommand.sed

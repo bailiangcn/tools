@@ -21,6 +21,7 @@
 ###./bin/ftree                  ##HOME##/bin/ftree
 ###./bin/music1g                ##HOME##/bin/music1g
 ###./bin/xmonadprop.sh          ##HOME##/bin/xmonadprop.sh
+###./maketrans                  ##HOME##/bin/maketrans
 
 -- 不涉及敏感字段的普通配置文件
 ###./config/bashrc              ##HOME##/.bashrc
