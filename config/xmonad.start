@@ -29,4 +29,7 @@ nautilus --no-desktop -n &
 #启动腾讯通
 /home/bl/bin/rtx.sh &
 
+#启动gnote
+/usr/bin/gnote &
+
 exec xmonad
