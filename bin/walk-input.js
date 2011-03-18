@@ -108,7 +108,7 @@ var walkinput = function (forward) {
 
 group.mappings.add([modes.NORMAL, modes.INSERT], ['<M-i>', '<A-i>'],
                     'Walk Input Fields (Forward)', function () walkinput(true));
-mappings.addUserMap([modes.NORMAL, modes.INSERT], ['<M-S-i>', '<A-S-i>'],
+group.mappings.add([modes.NORMAL, modes.INSERT], ['<M-S-i>', '<A-S-i>'],
                     'Walk Input Fields (Backward)', function () walkinput(false));
 
 })();
