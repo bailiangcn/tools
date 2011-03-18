@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-source ~/.git-completion.sh
+# source ~/.git-completion.sh
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -116,4 +116,4 @@ fi
 alias gvim="gvim 2>/dev/null"
 complete -o filenames -F _root_command notify
 
-export PATH=$PATH:~/tools/bin/
+export PATH=$PATH:~/bin/

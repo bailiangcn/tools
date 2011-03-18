@@ -22,6 +22,7 @@
 ###./bin/music1g                ##HOME##/bin/music1g
 ###./bin/xmonadprop.sh          ##HOME##/bin/xmonadprop.sh
 ###./maketrans                  ##HOME##/bin/maketrans
+###./bin/getdate.sh             ##HOME##/bin/getdate.sh
 
 -- 不涉及敏感字段的普通配置文件
 ###./config/bashrc              ##HOME##/.bashrc
