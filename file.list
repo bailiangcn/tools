@@ -23,6 +23,7 @@
 ###./bin/xmonadprop.sh          ##HOME##/bin/xmonadprop.sh
 ###./maketrans                  ##HOME##/bin/maketrans
 ###./bin/getdate.sh             ##HOME##/bin/getdate.sh
+###./bin/walk-input.js          ##HOME##/.pentadactyl/plugins/walk-input.js
 
 -- 不涉及敏感字段的普通配置文件
 ###./config/bashrc              ##HOME##/.bashrc

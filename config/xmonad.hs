@@ -26,7 +26,7 @@ import XMonad.Actions.GridSelect
 -- utils
 import XMonad.Util.Scratchpad (scratchpadSpawnAction, scratchpadManageHook, scratchpadFilterOutWorkspace)
 import XMonad.Util.Run(spawnPipe)
-import qualified XMonad.Prompt 		as P
+import qualified XMonad.Prompt      as P
 import XMonad.Prompt.Shell
 import XMonad.Prompt
 import XMonad.Prompt.Input
@@ -56,10 +56,9 @@ import Data.Ratio ((%))
 -- 主框架,不需要调整
 main = do
         xmproc <- spawnPipe "xmobar"  -- start xmobar
-    	xmonad 	$ withUrgencyHook NoUrgencyHook $ defaultConfig
-        	{ manageHook = myManageHook
-        	, layoutHook = myLayoutHook  
-        	--, layoutHook = layoutHints $ myLayoutHook  
+        xmonad  $ withUrgencyHook NoUrgencyHook $ defaultConfig
+            { manageHook = myManageHook
+            , layoutHook = myLayoutHook  
             , borderWidth = myBorderWidth
             , normalBorderColor = myNormalBorderColor
             , focusedBorderColor = myFocusedBorderColor
@@ -82,20 +81,22 @@ main = do
 myManageHook :: ManageHook
 myManageHook = scratchpadManageHook (W.RationalRect 0.25 0.375 0.5 0.35) <+> ( composeAll . concat $
                 [[isFullscreen                  --> doFullFloat
-		, className =? "OpenOffice.org 3.2" --> doShift "5:doc" 
-		, className =?  "Xmessage" 	--> doCenterFloat 
-		, className =?  "Zenity" 	--> doCenterFloat 
-		, className =? "feh" 	--> doCenterFloat 
+        , className =? "OpenOffice.org 3.2" --> doShift "5:doc" 
+        , className =?  "Xmessage"  --> doCenterFloat 
+        , className =?  "Zenity"    --> doCenterFloat 
+        , className =? "feh"    --> doCenterFloat 
+        , className =? "Gnote"  --> doCenterFloat 
         , (  className =? "Minefield" <&&> appName =? "Download" )  --> doCenterFloat
+        , (    appName =? "DTA" <&&> className =? "Firefox" )  --> doCenterFloat
                 , className =? "Gimp"           --> doShift "9:gimp"
                 , className =? "Firefox"           --> doShift "1:web"  --firefox
                 , className =? "Pidgin"           --> doShift "7:chat"
                 , className =? "Skype"           --> doShift "7:chat"
-		, className =? "MPlayer"	--> doShift "8:media"
-		, className =? "Linux1g1g"	--> doShift "8:media"
+        , className =? "MPlayer"    --> doShift "8:media"
+        , className =? "Linux1g1g"  --> doShift "8:media"
         , title =? "new of Windows XP office - VMware Workstation" --> doShift "6:virtual"
         , title =? "new of Windows XP office - VMware Player" --> doShift "6:virtual"
-		, className =? "Evince" 	--> doShift "4:pdf"
+        , className =? "Evince"     --> doShift "4:pdf"
         ] ]
                         )  <+> manageDocks 
  
@@ -109,9 +110,9 @@ myLogHook h = dynamicLogWithPP $ customPP { ppOutput = hPutStrLn h }
 ---- bar
 customPP :: PP
 customPP = defaultPP { 
-     			    ppHidden = xmobarColor "#00FF00" ""
-			  , ppCurrent = xmobarColor "#FF0000" "" . wrap "[" "]"
-			  , ppUrgent = xmobarColor "#FF0000" "" . wrap "*" "*"
+                    ppHidden = xmobarColor "#00FF00" ""
+              , ppCurrent = xmobarColor "#FF0000" "" . wrap "[" "]"
+              , ppUrgent = xmobarColor "#FF0000" "" . wrap "*" "*"
                           , ppLayout = xmobarColor "#FF0000" ""
                           , ppTitle = xmobarColor "#00FF00" "" . shorten 80
                           , ppSep = "<fc=#0033FF> | </fc>"
@@ -120,12 +121,12 @@ customPP = defaultPP {
 -- some nice colors for the prompt windows to match the xmobar status bar.
 myXPConfig = defaultXPConfig                                    
     { 
-	font  = "xft:DejaVu Sans Mono-12" 
-	,fgColor = "black"
-	, bgColor = "Aquamarine3"
-	, bgHLight    = "darkslategray4"
-	, fgHLight    = "black"
-	, position = Top
+    font  = "xft:DejaVu Sans Mono-12" 
+    ,fgColor = "black"
+    , bgColor = "Aquamarine3"
+    , bgHLight    = "darkslategray4"
+    , fgHLight    = "black"
+    , position = Top
     , borderColor = "black"
     , promptBorderWidth = 1
     , height     = 24
@@ -142,36 +143,36 @@ myTheme = defaultTheme { decoHeight = 16
 --LayoutHook
 myLayoutHook  =  onWorkspace "1:web" webL $ onWorkspace "2:code" codeL $ onWorkspace "3:gvim" gvimL $ onWorkspace "9:gimp" gimpL $ onWorkspace "6:virtual" fullL $ onWorkspace "7:chat" imLayout $ onWorkspace "8:media" fullL $ standardLayouts 
    where
-	standardLayouts =   avoidStruts  $ (tiled |||  reflectTiled ||| Mirror tiled ||| Grid ||| Full) 
+    standardLayouts =   avoidStruts  $ (tiled |||  reflectTiled ||| Mirror tiled ||| Grid ||| Full) 
  
         --Layouts
-	tiled     = smartBorders (ResizableTall 1 (2/100) (1/2) [])
-        reflectTiled = (reflectHoriz tiled)
-	tabLayout = (tabbed shrinkText myTheme)
-	full 	  = noBorders Full
+    tiled     = smartBorders (ResizableTall 1 (2/100) (1/2) [])
+    reflectTiled = (reflectHoriz tiled)
+    tabLayout = (tabbed shrinkText myTheme)
+    full      = noBorders Full
  
-        --Im Layout
-        imLayout = avoidStruts $ smartBorders $ withIM ratio pidginRoster $ reflectHoriz $ withIM skypeRatio skypeRoster (tiled ||| reflectTiled ||| Grid) where
-                chatLayout      = Grid
-	        ratio = (1%9)
-                skypeRatio = (1%8)
-                pidginRoster    = And (ClassName "Pidgin") (Role "buddy_list")
-                skypeRoster     = (ClassName "Skype") `And` (Not (Title "Options")) `And` (Not (Role "Chats")) `And` (Not (Role "CallWindowForm"))
+    --Im Layout
+    imLayout = avoidStruts $ smartBorders $ withIM ratio pidginRoster $ reflectHoriz $ withIM skypeRatio skypeRoster (tiled ||| reflectTiled ||| Grid) where
+        chatLayout      = Grid
+        ratio = (1%9)
+        skypeRatio = (1%8)
+        pidginRoster    = And (ClassName "Pidgin") (Role "buddy_list")
+        skypeRoster     = (ClassName "Skype") `And` (Not (Title "Options")) `And` (Not (Role "Chats")) `And` (Not (Role "CallWindowForm"))
  
-	--Gimp Layout
-	gimpL = avoidStruts $ smartBorders $ withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full 
+    --Gimp Layout
+    gimpL = avoidStruts $ smartBorders $ withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full 
  
-	--Web Layout
-	webL      = avoidStruts $  tabLayout  ||| tiled ||| reflectHoriz tiled ||| full
+    --Web Layout
+    webL      = avoidStruts $  tabLayout  ||| tiled ||| reflectHoriz tiled ||| full
  
-        --VirtualLayout
-        fullL = avoidStruts $ full
+    --VirtualLayout
+    fullL = avoidStruts $ full
 
-        --CodeLayout
-        codeL      = avoidStruts $  tabLayout  ||| tiled ||| reflectHoriz tiled    
-        
-        --GvimLayout
-        gvimL      = layoutHints ( Tall 1 (3/100) (1/2) ||| tabLayout  ||| reflectHoriz (Tall 1 (3/100) (1/2) ))
+    --CodeLayout
+    codeL      = avoidStruts $  tabLayout  ||| tiled ||| reflectHoriz tiled    
+    
+    --GvimLayout
+    gvimL      = layoutHints ( Tall 1 (3/100) (1/2) ||| tabLayout  ||| reflectHoriz (Tall 1 (3/100) (1/2) ))
  
  
  
@@ -306,9 +307,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask , xK_c ), spawn "/home/bl/bin/editconfig")
  
     -- volume control
-    , ((0 			, 0x1008ff13 ), spawn "amixer -q set Master 2dB+")
-    , ((0 			, 0x1008ff11 ), spawn "amixer -q set Master 2dB-")
-    , ((0 			, 0x1008ff12 ), spawn "amixer -q set Master toggle")
+    , ((0           , 0x1008ff13 ), spawn "amixer -q set Master 2dB+")
+    , ((0           , 0x1008ff11 ), spawn "amixer -q set Master 2dB-")
+    , ((0           , 0x1008ff12 ), spawn "amixer -q set Master toggle")
  
  
     -- quit, or restart

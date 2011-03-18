@@ -68,7 +68,7 @@ map <A-C-s> :set nsu!=<A-Tab>
 map <A-S-s> :set nst!=<A-Tab>
 
 " 设置提示链接不用12345
-"set hintkeys=asdfg;lkjh
+set hintkeys=asdfg;lkjh
 
 " 搜索时关闭输入法
 style -name commandline-ime chrome://* #dactyl-commandline-command input {ime-mode: inactive;}
@@ -83,4 +83,15 @@ hi HintImage opacity: .5;
 hi StatusLine color: #00ff00 !important; background-color: white !important; font-weight: bold !important; "font-size: 9pt !important;
 hi StatusLineBroken color: #000000 !important; background: #afafff !important; "font-size: 9pt !important;
 hi StatusLineSecure color: #000000 !important; background: #afffaf !important; "font-size: 9pt !important;
+
+javascript  <<EOF
+makecang = function() { 
+var u=buffer.URL;
+var t=buffer.title;
+cangurl="http://cang.baidu.com/do/add?it="+encodeURIComponent(t)+"&iu="+encodeURIComponent(u);
+dactyl.execute('tabopen '+cangurl);
+}
+EOF
+" sc 会把当前网页存入百度搜藏
+map sc -js makecang()
 
