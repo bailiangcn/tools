@@ -9,7 +9,7 @@ Config { font = "xft:WenQuanYi Zen Hei-10"
             , Run Memory ["-t","Mem: <usedratio>%"] 10
             , Run Com "sh" ["/home/bl/bin/gmail.sh"] "mail" 300
             , Run Swap [] 10
-            , Run Date "%y年%m月%d日 %H:%M:%S 星期 %u" "date" 10
+            , Run Com "sh" ["/home/bl/bin/getdate.sh"] "date" 300
             , Run StdinReader
         ]
     , sepChar = "%"
