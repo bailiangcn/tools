@@ -97,7 +97,7 @@ EOF
 
 " sc 会把当前网页存入百度搜藏
 map sc -js makecang()
-autocmd DOMLoad 'http://cang\.baidu\.com/do/add?' :normal! 4gi
+autocmd DOMLoad 'cang.baidu.com/do/add?' :normal! 4gi
 autocmd PageLoad 'www.google.com.hk/webhp' :normal! gi
 
 

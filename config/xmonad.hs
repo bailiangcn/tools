@@ -80,24 +80,27 @@ main = do
 -- automaticly switching app to workspace 
 myManageHook :: ManageHook
 myManageHook = scratchpadManageHook (W.RationalRect 0.25 0.375 0.5 0.35) <+> ( composeAll . concat $
-                [[isFullscreen                  --> doFullFloat
-        , className =? "OpenOffice.org 3.2" --> doShift "5:doc" 
-        , className =?  "Xmessage"  --> doCenterFloat 
-        , className =?  "Zenity"    --> doCenterFloat 
-        , className =? "feh"    --> doCenterFloat 
-        , className =? "Gnote"  --> doCenterFloat 
-        , (  className =? "Minefield" <&&> appName =? "Download" )  --> doCenterFloat
-        , (    appName =? "DTA" <&&> className =? "Firefox" )  --> doCenterFloat
-                , className =? "Gimp"           --> doShift "9:gimp"
-                , className =? "Firefox"           --> doShift "1:web"  --firefox
-                , className =? "Pidgin"           --> doShift "7:chat"
-                , className =? "Skype"           --> doShift "7:chat"
-        , className =? "MPlayer"    --> doShift "8:media"
-        , className =? "Linux1g1g"  --> doShift "8:media"
-        , title =? "new of Windows XP office - VMware Workstation" --> doShift "6:virtual"
-        , title =? "new of Windows XP office - VMware Player" --> doShift "6:virtual"
-        , className =? "Evince"     --> doShift "4:pdf"
-        ] ]
+                [[
+          isFullscreen                                                   --> doFullFloat
+
+        , className   =? "Xmessage"                                      --> doCenterFloat 
+        , className   =? "Zenity"                                        --> doCenterFloat 
+        , className   =? "feh"                                           --> doCenterFloat 
+        , className   =? "Gnote"                                         --> doCenterFloat 
+        , (className  =? "Minefield" <&&> appName =? "Download" )        --> doCenterFloat
+        , (appName    =? "DTA" <&&> className =? "Firefox" )             --> doCenterFloat
+
+        , className   =? "Firefox"                                       --> doShift "1:web"  
+        , className   =? "Evince"                                        --> doShift "4:pdf"
+        , className   =? "OpenOffice.org 3.2"                            --> doShift "5:doc" 
+        , title       =? "new of Windows XP office - VMware Workstation" --> doShift "6:virtual"
+        , title       =? "new of Windows XP office - VMware Player"      --> doShift "6:virtual"
+        , className   =? "Pidgin"                                        --> doShift "7:chat"
+        , className   =? "Skype"                                         --> doShift "7:chat"
+        , className   =? "MPlayer"                                       --> doShift "8:media"
+        , className   =? "Linux1g1g"                                     --> doShift "8:media"
+        , className   =? "Gimp"                                          --> doShift "9:gimp"
+        ]]
                         )  <+> manageDocks 
  
 --logHook
@@ -190,8 +193,8 @@ myModMask :: KeyMask
 myModMask = mod4Mask
  
 -- 配置 mod+g 的字体
---mygsconfig :: HasColorizer
-mygsconfig = defaultGSConfig  { gs_font ="文泉驿等宽正黑"}
+mygsconfig :: HasColorizer a => GSConfig a
+mygsconfig = defaultGSConfig  { gs_cellheight =40, gs_cellwidth = 200 , gs_font ="xft:WenQuanYi Micro Hei Mono-12"}
  
  
 -- borders
@@ -245,7 +248,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     ,((modMask,     xK_F2    ), spawn  (myTerminal ++ " -e sh -c '/home/bl/bin/editconfig'"))
 
     -- GridSelect
-    -- mod+g  表格选择的方式选择工作区(不能显示中文)
+    -- mod+g  表格选择的方式选择工作区(能显示中文)
     --, ((modMask, xK_g), spawnSelected defaultGSConfig ["xterm","gvim"])
     , ((modMask, xK_g), goToSelected mygsconfig)
  
@@ -307,9 +310,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask , xK_c ), spawn "/home/bl/bin/editconfig")
  
     -- volume control
-    , ((0           , 0x1008ff13 ), spawn "amixer -q set Master 2dB+")
-    , ((0           , 0x1008ff11 ), spawn "amixer -q set Master 2dB-")
-    , ((0           , 0x1008ff12 ), spawn "amixer -q set Master toggle")
+    , ((0  , 0x1008ff13 ), spawn "amixer -q set Master 2dB+")
+    , ((0  , 0x1008ff11 ), spawn "amixer -q set Master 2dB-")
+    , ((0  , 0x1008ff12 ), spawn "amixer -q set Master toggle")
  
  
     -- quit, or restart
