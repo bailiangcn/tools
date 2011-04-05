@@ -1,6 +1,0 @@
-#!/bin/bash
-# 支持中文的dmenu,用于xmonad调用
-export HOME=##HOME##
-. $HOME/.bashrc
-res=$(dmenu_path | dmenu -fn \* -nb 'Aquamarine3' -nf 'darkslategray4' -sb 'black' -p '管理员权限 (请谨慎使用)'    -sb 'black' -sf 'red')
-echo $res
