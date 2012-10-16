@@ -1,0 +1,19 @@
+#!/bin/bash
+#===============================================================================
+#
+#          FILE:  1gmusic.sh
+# 
+#         USAGE:  ./1gmusic.sh 
+# 
+#   DESCRIPTION:  自动播放linux1g1g,能够检查防止出现重复实例
+#        AUTHOR:  BaiLiang , bailiangcn@gmail.com
+#       COMPANY:  DQYTV
+#       VERSION:  1.0
+#       CREATED:  2011-03-15 00:27:02
+#===============================================================================
+
+musicon="$(ps aux | grep linux1g1g | wc -l)"
+if [ "$musicon" -eq 1 ]; then
+    /usr/bin/linux1g1g >/dev/null 2>&1  &
+fi
+

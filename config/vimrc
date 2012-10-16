@@ -1,0 +1,471 @@
+" 工作用的vimrc
+"
+" Maintainer:    白亮
+" Last Change:  2011年03月11日 22时23分26秒
+
+" 防止ubuntu 10.04下面看不见中文菜单
+set langmenu=zh_CN
+let $LANG = 'zh_CN'
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+" 调用vim插件管理插件 pathogen (需要安装pathogen.vim)
+call pathogen#runtime_append_all_bundles() 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                      为方便编辑vimrc设置部分                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"设置默认的mapleader为逗号
+    let mapleader=","
+    let g:mapleader="," "Set mapleader变量
+
+"设置快速编辑.vimrc文件 ,e 编辑.vimrc
+    map <silent> <leader>e :call SwitchToBuf("~/.vimrc")<cr>
+
+"保存.vimrc文件后会自动调用新的.vimrc
+    autocmd! bufwritepost .vimrc source ~/.vimrc
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                         vim基本设置部分                                      "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim的基本设置
+    set nocp "设置不兼容模式
+    syntax on "打开语法高亮
+	if has("gui_running")
+		set guioptions-=T   "关闭工具栏
+		colorscheme darkblue "载入色彩方案
+	else
+		set background=dark
+		colorscheme zellner
+	endif
+    set mouse=a "设置鼠标支持
+    set nobackup "取消自动备份
+    setlocal noswapfile "不要生成swap文件
+    set bufhidden=hide "当buffer被丢弃时隐藏
+    set autoread "设置自动读取文件当外部文件被修改时
+    set showcmd "设置显示未完成的命令
+    set autoindent "设置自动缩进
+    set sessionoptions+=resize "保存窗口大小
+	set scrolloff=7  "光标上下两侧最少保留的屏幕行数
+	set cmdheight=2  "设置命令行高度为2行
+	
+" 设置中文支持
+    set encoding=utf-8
+    set fileencodings=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
+    set ambiwidth=double
+    set guifont=Courier\ 10\ Pitch\ 12
+
+"打开文件时，总是跳到退出之前的光标处
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+"反显光标当前行颜色
+	if has("gui_running")
+	  set cursorline
+	  hi cursorline guibg=#333333
+	endif
+
+"设置高亮搜索、输入字符串就显示匹配点
+	set hlsearch	"搜索出之后高亮关键词
+	set incsearch	"搜索时高亮关键词
+    set ignorecase   "搜索时忽略大小写
+    nmap <silent> <leader><cr> :noh<cr>  ", 快速清除高亮搜索
+
+"关于标签的快捷键
+    map <leader>tn :tabnew%<cr>   "将当前内容在新标签中打开
+    map <leader>te :tabedit<cr>   "打开空白新标签
+	map <leader>tc :tabclose<cr>  "关闭当前标签
+	map <leader>tm :tabmove   
+	"移动当前标签,使用方法为
+	":tabmove [N]把当前标签页移到第N个标签页之后.
+	"用0使用当前标签页成为首个标签页.如果没有N,
+	"当前标签页成为最后一个.
+
+"设置其他快捷键
+    map <F7> :vsplit<ENTER>:edit `pwd`<ENTER>i
+    "F7 打开左侧垂直窗口选择待编辑的文件
+
+" vim中间临时用root权限保存文件
+    cmap w!! %!sudo tee > /dev/null %
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"               与插件相关的设置                                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"vimim插件的配置（需要安装vimim插件）
+"
+    "设置CTRL-\转换当前拼音为汉字
+    "let g:vimim_one_key=1
+	"逆向最大匹配,逐词上屏
+	"let g:vimim_match_word_after_word=1
+	"动态造词 v_ctrl-6 会出现当前选择的词的拼音串,可以用v_ctrl-6 存入字典生成新的词组
+	"let g:vimim_save_new_entry=1
+	"见字找码 v_ctrl-6 
+	"let g:vimim_reverse_loopkup=1
+    let g:vimim_chinese_input_mode = "static"
+    let g:vimim_cloud_sougou=3
+"
+"project插件配置(需要安装project插件)
+" \r  读入当前目录文件 
+    let g:proj_window_increment=50
+    let g:proj_flags="imstFg"
+    nmap <silent> <Leader>P :Project<CR>
+
+
+"
+"minibufexpl插件配置(需要安装minibufexpl插件)
+"ctrl+tab shift+ctrl+tab 切换缓冲区里的文件
+    "设置用Control + [hjkl]在缓冲区窗口移动
+    let g:miniBufExplMapWindowNavVim = 1
+    let g:miniBufExplMapWindowNavArrows = 1
+    let g:miniBufExplMapCTabSwitchBufs = 1
+    let g:miniBufExplModSelTarget = 1
+    let g:miniBufExplMapCTabSwitchWindows = 1
+    map <Leader>t :TMiniBufExplorer<cr>  "设置,t交替出现minibuffer窗口
+
+"
+"TagList插件配置(需要安装TagList插件)
+"
+"进行Taglist的设置
+"TlistUpdate可以更新tags
+    map <F2> :Tlist<CR> "按下F2就可以呼出了
+    let Tlist_Ctags_Cmd='ctags' "因为我们放在环境变量里，所以可以直接执行
+    let Tlist_Use_Right_Window=0 "让窗口显示在右边，0的话就是显示在左边
+    let Tlist_Show_One_File=0 "让taglist可以同时展示多个文件的函数列表
+    let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏
+    let Tlist_Exit_OnlyWindow=1 "当taglist是最后一个分割窗口时，自动推出vim
+    "是否一直处理tags.1:处理;0:不处理
+    let Tlist_Process_File_Always=0 "不是一直实时更新tags，因为没有必要
+    let Tlist_Inc_Winwidth=1
+
+
+"
+"sdcv配置(需要安装sdcv,不是vim插件)
+" K 翻译当前单词
+"
+    "设置vim字典翻译功能
+    set keywordprg=sdcv
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"               通用代码相关的设置                                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    set number		"设置显示行号
+	set expandtab
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+	set wildmenu  "命令行补全
+	set showmatch	"插入括号时短暂跳转到匹配的对应括号
+	set matchtime=2 "跳转到匹配括号的时间
+
+
+    filetype plugin on      "允许使用ftplugin目录下的文件类型特定脚本
+    filetype indent on      "允许使用indent目录下的文件类型缩进
+
+    "设置代码查看
+    set tags=tags;
+    set autochdir
+
+"设置以缩进的方式自动折叠和设置快捷方式
+    set foldmethod=indent
+    map <F3>    zO   "打开折叠
+    map <F4>    zc   "关闭折叠
+    map <F5>    zR    "打开所有折叠
+    map <F6>    zM   "关闭所有折叠
+
+"设置( { [ < 自动配对
+    :inoremap ( ()<ESC>i
+    :inoremap ) <c-r>=ClosePair(')')<CR>
+    :inoremap { {}<ESC>i
+    :inoremap } <c-r>=ClosePair('}')<CR>
+    :inoremap [ []<ESC>i
+    :inoremap ] <c-r>=ClosePair(']')<CR>
+    :inoremap < <><ESC>i
+    :inoremap > <c-r>=ClosePair('>')<CR>
+
+"保存代码文件前自动修改最后修改时间
+
+    au BufWritePre *.sh           call TimeStamp('#')
+    au BufWritePre .vimrc,*.vim   call TimeStamp('"')
+    au BufWritePre *.c,*.h        call TimeStamp('*')
+    au BufWritePre *.cpp,*.hpp    call TimeStamp('//')
+    au BufWritePre *.cxx,*.hxx    call TimeStamp('//')
+    au BufWritePre *.java         call TimeStamp('//')
+    au BufWritePre *.rb           call TimeStamp('#')
+    au BufWritePre *.py,*.ks      call TimeStamp('#')
+    au BufWritePre Makefile       call TimeStamp('#')
+    au BufWritePre *.php
+        \call TimeStamp('<?php //', '?>')
+"    au BufWritePre *.html,*htm
+"        \call TimeStamp('<!--', '-->')
+"设置ctrl+alt+] ctrl+alt+[.增减窗口列宽
+
+    :map <C-A-]>  :vertical resize +5<cr>
+    :map <C-A-[>  :vertical resize -5<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"               BASH 相关的设置                                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"bashsupport插件设置(需要安装bashsupport插件)
+"
+    let g:BASH_AuthorName = 'BaiLiang'
+    let g:BASH_Email = 'bailiangcn@gmail.com'
+    let g:BASH_Company = 'DQYTV'
+
+    "设置bashsupport的日期格式
+    let g:BASH_FormatDate       = '%Y-%m-%d'
+    let g:BASH_FormatTime       = '%H:%M:%S'
+    let g:BASH_FormatYear       = '%Y'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"               C 相关的设置                                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+    map <F11>    :!/home/bl/workspace/test/myprog<cr>
+    map <S-F11>  :make<cr>
+    let g:C_Ctrl_j   = 'off' "关闭c.vim 中ctrl+J的功能
+    autocmd BufWritePost *.c  normal mzgg=G`z
+    command! In :call FormatC()
+    autocmd FileType c setlocal noexpandtab | setlocal shiftwidth=4 |
+                \setlocal softtabstop=4 | setlocal tabstop=4
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"               PYTHON 相关的设置                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"设置识别ks扩展名的python脚本
+    au BufNewFile,BufRead *.ks set filetype=python
+"设置utf-8缩写
+iabbrev utf8 utf-8
+iabbrev en encode('utf-8')
+"Python 文件的一般设置，比如不要 tab 等
+    "设置自动缩进为4,插入模式里: 插入 <Tab> 时使用合适数量的空格。
+    "要插入实际的制表，可用 CTRL-V<Tab>	
+    autocmd FileType python setlocal expandtab | setlocal shiftwidth=4 |
+                \setlocal softtabstop=4 | setlocal tabstop=4
+
+"pydiction插件设置(需要安装pydiction插件)
+    "设置python的字典路径
+    let g:pydiction_location = '~/.vim/skeleton/pydict/complete-dict'
+    "设置pydict的菜单高度
+    let g:pydiction_menu_height = 10   
+
+"Python Unittest 的一些设置
+    "在编写 Python 代码及 unittest 测试时不需要离开 vim
+    "键入 :make 或者点击 gvim 工具条上的 make 按钮就自动执行测试用例
+    autocmd FileType python compiler pyunit
+    autocmd FileType python setlocal makeprg=python\ ~/.vim/skeleton/alltests.py
+    autocmd BufNewFile,BufRead test*.py setlocal makeprg=python\ %
+
+"自动使用新文件模板(需要提前准备skeleton相关文件)
+    autocmd BufNewFile test*.py 0r ~/.vim/skeleton/test.py
+    autocmd BufNewFile alltests.py 0r ~/.vim/skeleton/alltests.py
+    autocmd BufNewFile *.py 0r ~/.vim/skeleton/skeleton.py
+
+"在正常模式下输入\t 会在文件末尾加入测试语句,需要在test后面加上实际的测试文件名
+    autocmd FileType python map <silent>\t G:r ~/.vim/skeleton/myskeleton.py<cr>  zR<cr> /from.*\*\*\*<cr>  wcwtest
+"在输入模式下$c添加注释
+	au FileType python inoremap <buffer> $c <esc>O#<cr>##<space><cr>#<esc>kA
+"设置python 的调试
+"ctrl+F7  设置断点   ctrl+F8  移除断点  F9  执行
+"
+python << EOF
+import time
+import vim
+def SetBreakpoint():
+
+    import re
+
+    nLine = int(vim.eval('line(".")'))
+    strLine = vim.current.line 
+    strWhite = re.search('^(\s*)',strLine).group(1)
+
+    vim.current.buffer.append( "%(space)spdb.set_trace() %(mark)s Breakpoint %(mark)s" 
+          % {'space':strWhite, 'mark': '#' * 30}, nLine - 1)
+
+    for strLine in vim.current.buffer:
+        if strLine == "import pdb":
+            break 
+        else: 
+            vim.current.buffer.append( 'import pdb', 4)
+            vim.command( 'normal j1')
+            break
+
+vim.command( 'map <C-F7> :py SetBreakpoint()<cr>')
+
+def RemoveBreakpoints():
+    nCurrentLine = int( vim.eval( 'line(".")'))
+    nLines = []
+    nLine = 1
+    for strLine in vim.current.buffer:
+        if strLine == 'import pdb' or strLine.lstrip()[:15] == 'pdb.set_trace()':
+            nLines.append( nLine)
+        nLine += 1
+    nLines.reverse()
+    for nLine in nLines:
+        vim.command( 'normal %dG' % nLine)
+        vim.command( 'normal dd')
+        if nLine < nCurrentLine:
+            nCurrentLine -= 1
+    vim.command( 'normal %dG' % nCurrentLine)
+vim.command( 'map <C-F8> :py RemoveBreakpoints()<cr>')
+vim.command( 'map <F9> :w<cr>:!python %<cr>')
+EOF
+
+"设置= + - * 前后自动空格
+" ,后面自动添加空格
+    "au FileType python inoremap <buffer>= <c-r>=EqualSign('=')<CR>
+    "au FileType python inoremap <buffer>+ <c-r>=EqualSign('+')<CR>
+"    au FileType python inoremap <buffer>- <c-r>=EqualSign('-')<CR>
+    "au FileType python inoremap <buffer>* <c-r>=EqualSign('*')<CR>
+"    au FileType python inoremap <buffer>/ <c-r>=EqualSign('/')<CR>
+"    au FileType python inoremap <buffer>> <c-r>=EqualSign('>')<CR>
+"    au FileType python inoremap <buffer>< <c-r>=EqualSign('<')<CR>
+    "au FileType python inoremap <buffer>: <c-r>=Swap()<CR>
+    "au FileType python inoremap <buffer>, ,<space>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                        脚本内部用到的自定义函数                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"函数后面加上！是防止vimrc文件重新载入时报错
+"
+"实现光标位置自动交换:) -->  ):
+
+    function! Swap()
+        if getline('.')[col('.') - 1] =~ ")"
+            return "\<ESC>la:"
+        else
+            return ":"
+        endif
+    endf
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"实现+-*/前后自动添加空格，逗号后面自动添加空格，适用python
+"支持+= -+ *= /+格式
+
+    function! EqualSign(char)
+        if a:char  =~ '='  && getline('.') =~ ".*[(<]"
+            return a:char
+        endif 
+        let ex1 = getline('.')[col('.') - 3]
+        let ex2 = getline('.')[col('.') - 2]
+
+        if ex1 =~ "[-=+><>\/\*]"
+            if ex2 !~ "\s"
+                return "\<ESC>i".a:char."\<SPACE>"
+            else
+                return "\<ESC>xa".a:char."\<SPACE>"
+            endif 
+        else
+            if ex2 !~ "\s"
+                return "\<SPACE>".a:char."\<SPACE>\<ESC>a"
+            else
+                return a:char."\<SPACE>\<ESC>a"
+            endif 
+        endif
+    endf
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"实现括号的自动配对后防止重复输入），适用python
+
+    function! ClosePair(char)
+        if getline('.')[col('.') - 1] == a:char
+            return "\<Right>"
+        else
+            return a:char
+        endif
+    endf
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"SwitchToBuf()实现它在所有标签页的窗口中查找指定的文件名，如果找到这样一个窗口，
+"就跳到此窗口中；否则，它新建一个标签页来打开vimrc文件
+"上面自动编辑.vimrc文件用到的函数
+
+    function! SwitchToBuf(filename)
+        let bufwinnr = bufwinnr(a:filename)
+        if bufwinnr != -1
+        exec bufwinnr . "wincmd w"
+            return
+        else
+            " find in each tab
+            tabfirst
+            let tab = 1
+            while tab <= tabpagenr("$")
+                let bufwinnr = bufwinnr(a:filename)
+                if bufwinnr != -1
+                    exec "normal " . tab . "gt"
+                    exec bufwinnr . "wincmd w"
+                    return
+                endif
+                tabnext
+                let tab = tab + 1
+            endwhile
+            " not exist, new tab
+            exec "tabnew " . a:filename
+        endif
+    endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"Last change用到的函数，返回时间，能够自动调整位置
+
+    function! TimeStamp(...)
+        let sbegin = ''
+        let send = ''
+        if a:0 >= 1
+            let sbegin = a:1.'\s*'
+            if a:1 == '*'
+                let sbegin = '\' . sbegin
+            endif
+        endif
+        if a:0 >= 2
+            let send = ' '.a:2
+        endif
+        let pattern =  'Last Change:.*'
+            \. send
+        let pattern = '^\s*' . sbegin . pattern . '\s*$'
+        let now = strftime('%Y年%m月%d日 %H时%M分%S秒',
+            \localtime())
+        let row = search(pattern, 'n')
+        if row  != 0
+            let curstr = getline(row)
+            let col = match( curstr , 'Last')
+            let leftcol = match(curstr,sbegin)
+            let spacestr = repeat(' ',col - len(a:1)-leftcol)
+            let leftspacestr = repeat(' ',leftcol)
+            let now = leftspacestr . a:1 . spacestr . 'Last Change:  '
+                \. now . send
+            call setline(row, now)
+        endif
+    endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"设置在c文件保存时自动格式化
+"调用命令是 au BufWritePost *.c :call FormatC()
+
+      function! FormatC()
+          !indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 %
+          edit
+          !rm ./*~
+          syntax enable
+      endfunction
+       
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"将下面这段放在~/.gvimrc内容里面，将支持vim中鼠标的中文翻译（需安装sdcv）
+"function  Mybln()
+"     let  expl=system('sdcv  -n  '  .
+"           \  v:beval_text  .
+"           \  '|fmt  -cstw  40')
+"     return  expl
+"endfunction
+"set  bexpr=Mybln()
+"set  beval

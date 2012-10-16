@@ -1,0 +1,18 @@
+[user]
+	name = bailiang
+	email = bailiangcn@gmail.com
+[core]
+	editor = gvim
+[merge]
+	tool = vimdiff
+[color]
+	status = auto
+	branch = auto
+    ui=auto
+	diff = auto
+	interactive = auto
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch

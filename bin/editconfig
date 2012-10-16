@@ -1,0 +1,56 @@
+#!/bin/bash
+#===============================================================================
+#
+#          FILE:  editconfig
+# 
+#         USAGE:  ./editconfig
+# 
+#   DESCRIPTION:  编辑本地的配置文件
+# 
+#        AUTHOR:  BaiLiang , bailiangcn@gmail.com
+#       COMPANY:  DQYTV
+#       VERSION:  1.0
+#       CREATED:  2011-03-12 09:31:27
+#   Last Change:  2011年03月14日 11时39分30秒
+#===============================================================================
+
+home="##HOME##"
+
+prog="
+editconfig
+bashrc
+xmonad.hs
+xmobarrc
+pentadactyl
+checkgmail
+xmonad.start
+sudomenu
+1gmusic
+filelist
+secret.txt
+maketrans
+"
+
+cmd=$(dmenu -b -fn \*-16 -nb 'Aquamarine3' -nf 'black' -sb 'black' -sb 'black' -sf 'green' -p '请选择修改文件' <<< "$prog")
+
+if [ 0 -ne ${#cmd} ]; then
+    case ${cmd%% *} in
+        editconfig)     vim "${home}/tools/bin/editconfig" && maketrans;;
+        checkgmail)     vim "${home}/tools/bin/gmail.sh" && maketrans;;
+        sudomenu)       vim "${home}/tools/bin/sudodmenu" && maketrans;;
+
+        bashrc)         vim "${home}/.bashrc"    ;;
+        xmonad.hs)      vim "${home}/.xmonad/xmonad.hs" ;;
+        xmobarrc)       vim "${home}/.xmobarrc" ;;
+        pentadactyl)    vim "${home}/.pentadactylrc" ;;
+        1gmusic)        vim "${home}/bin/music1g" ;;
+        filelist)       vim "${home}/tools/file.list" ;;
+        maketrans)      vim "${home}/tools/maketrans" ;;
+        secret.txt)     vim "${home}/tools/secret.txt" ;;
+
+        xmonad.start)   sudo vim "/usr/local/bin/xmonad.start" ;;
+        
+        *)              "'${cmd}'" ;;
+    esac
+    
+fi

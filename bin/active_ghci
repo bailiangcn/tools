@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# active Terminator
+if [ -f /tmp/.ghci.shaded ]; then
+    wmctrl -x -a Terminator
+    rm /tmp/.ghci.shaded
+# active Firefox
+else
+    wmctrl -x -a Firefox
+    touch /tmp/.ghci.shaded
+fi
