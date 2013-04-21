@@ -128,6 +128,17 @@ fi
 alias gviim="gvim"
 alias viim="vim "
 alias gvim="gvim -f 2>/dev/null"
+#
+#
+#
+#complete -o filenames -F _root_command notify
 
-source ~/.local/bin/bashmarks.sh
+
+#### chsdir start ###
+#. $HOME/bin/chs_completion
+#PATH=$PATH:$HOME/bin
+##export CHSDIR="{'n':'l'}"
+#### chsdir finish. ###
+
+source ~/bashmarks/bashmarks.sh
 export PATH="/home/bl/bin:$PATH"

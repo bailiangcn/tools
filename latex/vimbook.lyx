@@ -1,0 +1,560 @@
+#LyX 1.6.5 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass book
+\begin_preamble
+% define the title
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{amsmath}
+%\usepackage{natbib}
+\usepackage{xeCJK}
+\usepackage{titlesec}            %设置标题
+\usepackage{titletoc}
+\usepackage[dvipdfm,
+            pdfstartview=FitH,
+            CJKbookmarks=true,
+            bookmarksnumbered=true,
+            bookmarksopen=true,
+            colorlinks, %注释掉此项则交叉引用为彩色边框(将colorlinks和pdfborder同时注释掉)
+            pdfborder=001,   %注释掉此项则交叉引用为彩色边框
+            linkcolor=blue,
+            anchorcolor=blue,
+            citecolor=blue
+            ]{hyperref}
+
+% xetex设置
+
+\setmainfont[BoldFont=SimHei,ItalicFont=KaiTi_GB2312]{SimSun}
+\setsansfont[BoldFont=SimHei]{KaiTi_GB2312}
+\setmonofont{NSimSun}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+%===================== 重定义字体、字号命令 =====================%
+\newcommand{\song}{\CJKfamily{song}}    % 宋体   (Windows自带simsun.ttf)
+\newcommand{\fs}{\CJKfamily{fs}}        % 仿宋体 (Windows自带simfs.ttf)
+\newcommand{\kai}{\CJKfamily{kai}}      % 楷体   (Windows自带simkai.ttf)
+\newcommand{\hei}{\CJKfamily{hei}}      % 黑体   (Windows自带simhei.ttf)
+\newcommand{\li}{\CJKfamily{li}}        % 隶书   (Windows自带simli.ttf)
+\newcommand{\you}{\CJKfamily{you}}      % 幼圆   (Windows自带simyou.ttf)
+%
+\newcommand{\chaoda}{\fontsize{55pt}{\baselineskip}\selectfont}
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont} % 字号设置
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\xiaosanhao}{\fontsize{15pt}{\baselineskip}\selectfont} % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{14pt}\selectfont}           % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{12.6pt}\selectfont}           % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{11pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+
+%=============================================================================%
+\renewcommand\listfigurename{图　目　录}
+\renewcommand\listtablename{表　目　录}
+
+\renewcommand\figurename{图}
+\renewcommand\tablename{表}
+\renewcommand{\bibname}{参考文献}
+
+%设置页面大小
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+
+%设置首行缩进
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\baselineskip}{1.8em}
+\setlength{\parskip}{1ex}
+
+\usepackage{fancyhdr}
+% 设置 plain style 的属性
+\fancypagestyle{plain}{%
+\fancyhf{}                    % 清空当前设置
+
+% 设置页眉 (head)
+\fancyhead[RE]{\leftmark}     % 在偶数页的右侧显示章名
+\fancyhead[LO]{\rightmark}    % 在奇数页的左侧显示小节名
+\fancyhead[LE,RO]{~\thepage~} % 在偶数页的左侧，奇数页的右侧显示页码
+% 设置页脚：在每页的右下脚以斜体显示书名
+\fancyfoot[RO,RE]{\it 高效编辑利器-VIM}
+
+\renewcommand{\headrulewidth}{0.7pt} % 页眉与正文之间的水平线粗细
+\renewcommand{\footrulewidth}{0pt}
+}
+
+\pagestyle{fancy}             % 选用 fancy style
+% 其余同 plain style
+\fancyhf{}                   
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\fancyhead[LE,RO]{~\thepage~}
+\fancyfoot[RO,RE]{\it 高效编辑利器-VIM}
+\renewcommand{\headrulewidth}{0.7pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+%设置章节标题
+%\renewcommand{\chaptername}{第\CJKnumber{\thechapter}章} 
+%设置目录
+\renewcommand{\contentsname}{目\quad 录} 
+\titleformat{\chapter}[hang]
+   % {\normalfont\bfseries\huge\filcenter\CJKfamily{hei}}
+    {\normalfont\bfseries\yihao\filcenter\CJKfamily{hei}}
+    %{\huge{\chaptertitlename}}
+    %{第~\CJKnumber{\thechapter}~章}
+    {第~{\thechapter}~章}
+    {1em}{\yihao}
+\titlespacing{\chapter}{0pt}{*0}{*4} 
+\titleformat{\section}[hang]{\bfseries}% add \bfseries if you want to use bold fonts
+    {\sihao 第~{\thesection}~节}{1em}{\sihao}
+\titlespacing{\section}%
+    {0pt}{1.5ex plus .1ex minus .2ex}{\wordsep}%{1ex plus .1ex minus .2ex}
+    \titlecontents{chapter}
+          [3mm]
+          {\addvspace{.1pc}}%
+          { 第\,\thecontentslabel\,章 \enspace}%
+          {}
+          {\titlerule*{$\cdots$}\contentspage}
+\titlecontents{section}
+              [10mm]
+              {\vspace{.2\baselineskip}}
+              {第\thecontentslabel 节\enspace}
+              {}
+              {\titlerule*{$\cdots$}\contentspage}
+\titlecontents{subsection}
+          [16mm]
+          {\addvspace{.1pc}}%
+          { \thecontentslabel \enspace}%
+          {}
+          {\titlerule*{$\cdots$}\contentspage}
+%====================定义图，公式标编号等格式=============
+\numberwithin{figure}{section} \numberwithin{table}{section}
+\numberwithin{equation}{section}
+
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\renewcommand{\thefigure}{\arabic{section}-\arabic{figure}}
+\renewcommand{\thetable}{\arabic{section}-\arabic{table}}
+%==========================================================
+%==================================================================
+%==================================================================
+%==================================================================
+%==================================================================
+%==================================================================
+%==================================================================
+\end_preamble
+\use_default_options true
+\language chinese-simplified
+\inputencoding utf8-plain
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 10
+\spacing onehalf
+\use_hyperref false
+\papersize a4paper
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 5
+\tocdepth 5
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Title
+高效编辑利器-VIM
+\end_layout
+
+\begin_layout Author
+白亮
+\end_layout
+
+\begin_layout Date
+2011年4月
+\end_layout
+
+\begin_layout Chapter*
+
+\size large
+前言：为什么 VIM 被称为神器
+\end_layout
+
+\begin_layout Standard
+vim被称为神奇的编辑器，为什么能够称为史上最强的编辑器。在这个蔚蓝色的星球上，流传着两大神器的传说：据说Emacs是神的编辑器，而Vim是编辑器之神。追求独步
+天下的高手和低手们争着一睹它们的风采，可看到它们朴素单薄的界面后，不禁心下怀疑：这就是神器吗?甚至有人生了轻视之心。
+\end_layout
+
+\begin_layout Standard
+肤浅的人嗤之以鼻，说：什么年代了，还抱着这么老土的玩意不放，真他妈Geek!同学，请冷静下来，听我说：它们的确够老了，都几十年的寿命了，但你想想为什么，为什么这
+么古老的编辑器，却有越来越多的人皈依它们。
+\end_layout
+
+\begin_layout Standard
+Windows下用UltraEdit和Editplus的人质问：它们到底比UltraEdit和Editplus好在哪里?我说：不可同日而语。
+\end_layout
+
+\begin_layout Standard
+连UltraEdit和EditPlus都没用过的同学问：它们就相当于Linux上的 Notepad吧?我说：请你从我的眼前消失。
+\end_layout
+
+\begin_layout Standard
+一些人勇敢地拾起了Vim或Emacs，却发现学习曲线陡峭而漫长，于是在没发现它们的强大之前就放弃了，说：太难用了，把键盘当鼠标用的烂玩意，有什么好的?
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+vim 入门 
+\end_layout
+
+\begin_layout Section
+安装及如何获得帮助 
+\end_layout
+
+\begin_layout Section
+基本编辑功能 
+\end_layout
+
+\begin_layout Subsection
+打开、保存、关闭文件
+\end_layout
+
+\begin_layout Subsection
+光标的移动
+\end_layout
+
+\begin_layout Subsection
+vim 的模式 
+\end_layout
+
+\begin_layout Subsection
+训练一 
+\end_layout
+
+\begin_layout Section
+光标的快速移动
+\end_layout
+
+\begin_layout Standard
+vim被称为神奇的编辑器，为什么能够称为史上最强的编辑器。在这个蔚蓝色的星球上，流传着两大神器的传说：据说Emacs是神的编辑器，而Vim是编辑器之神。追求独步
+天下的高手和低手们争着一睹它们的风采，可看到它们朴素单薄的界面后，不禁心下怀疑：这就是神器吗?甚至有人生了轻视之心。
+\end_layout
+
+\begin_layout Standard
+肤浅的人嗤之以鼻，说：什么年代了，还抱着这么老土的玩意不放，真他妈Geek!同学，请冷静下来，听我说：它们的确够老了，都几十年的寿命了，但你想想为什么，为什么这
+么古老的编辑器，却有越来越多的人皈依它们。
+\end_layout
+
+\begin_layout Standard
+vim被称为神奇的编辑器，为什么能够称为史上最强的编辑器。在这个蔚蓝色的星球上，流传着两大神器的传说：据说Emacs是神的编辑器，而Vim是编辑器之神。追求独步
+天下的高手和低手们争着一睹它们的风采，可看到它们朴素单薄的界面后，不禁心下怀疑：这就是神器吗?甚至有人生了轻视之心。
+\end_layout
+
+\begin_layout Standard
+肤浅的人嗤之以鼻，说：什么年代了，还抱着这么老土的玩意不放，真他妈Geek!同学，请冷静下来，听我说：它们的确够老了，都几十年的寿命了，但你想想为什么，为什么这
+么古老的编辑器，却有越来越多的人皈依它们。
+\end_layout
+
+\begin_layout Standard
+vim被称为神奇的编辑器，为什么能够称为史上最强的编辑器。在这个蔚蓝色的星球上，流传着两大神器的传说：据说Emacs是神的编辑器，而Vim是编辑器之神。追求独步
+天下的高手和低手们争着一睹它们的风采，可看到它们朴素单薄的界面后，不禁心下怀疑：这就是神器吗?甚至有人生了轻视之心。
+\end_layout
+
+\begin_layout Standard
+肤浅的人嗤之以鼻，说：什么年代了，还抱着这么老土的玩意不放，真他妈Geek!同学，请冷静下来，听我说：它们的确够老了，都几十年的寿命了，但你想想为什么，为什么这
+么古老的编辑器，却有越来越多的人皈依它们。
+\end_layout
+
+\begin_layout Standard
+vim被称为神奇的编辑器，为什么能够称为史上最强的编辑器。在这个蔚蓝色的星球上，流传着两大神器的传说：据说Emacs是神的编辑器，而Vim是编辑器之神。追求独步
+天下的高手和低手们争着一睹它们的风采，可看到它们朴素单薄的界面后，不禁心下怀疑：这就是神器吗?甚至有人生了轻视之心。
+\end_layout
+
+\begin_layout Standard
+肤浅的人嗤之以鼻，说：什么年代了，还抱着这么老土的玩意不放，真他妈Geek!同学，请冷静下来，听我说：它们的确够老了，都几十年的寿命了，但你想想为什么，为什么这
+么古老的编辑器，却有越来越多的人皈依它们。
+\end_layout
+
+\begin_layout Standard
+vim被称为神奇的编辑器，为什么能够称为史上最强的编辑器。在这个蔚蓝色的星球上，流传着两大神器的传说：据说Emacs是神的编辑器，而Vim是编辑器之神。追求独步
+天下的高手和低手们争着一睹它们的风采，可看到它们朴素单薄的界面后，不禁心下怀疑：这就是神器吗?甚至有人生了轻视之心。
+\end_layout
+
+\begin_layout Standard
+肤浅的人嗤之以鼻，说：什么年代了，还抱着这么老土的玩意不放，真他妈Geek!同学，请冷静下来，听我说：它们的确够老了，都几十年的寿命了，但你想想为什么，为什么这
+么古老的编辑器，却有越来越多的人皈依它们。
+\end_layout
+
+\begin_layout Section
+搜索、替换 
+\end_layout
+
+\begin_layout Chapter
+常用插件 
+\end_layout
+
+\begin_layout Section
+配置文件 vimrc 简介
+\end_layout
+
+\begin_layout Section
+pathogen(插件管理) 
+\end_layout
+
+\begin_layout Section
+project(项目管理) 
+\end_layout
+
+\begin_layout Section
+vimim(中文输入) 
+\end_layout
+
+\begin_layout Section
+Taglist 
+\end_layout
+
+\begin_layout Section
+c.vim 
+\end_layout
+
+\begin_layout Section
+minibufexpl 
+\end_layout
+
+\begin_layout Chapter
+详解 vimrc 
+\end_layout
+
+\begin_layout Section
+中文编码设置 
+\end_layout
+
+\begin_layout Section
+常见格式设置 
+\end_layout
+
+\begin_layout Section
+语法高亮设置 
+\end_layout
+
+\begin_layout Section
+自动缩进设置 
+\end_layout
+
+\begin_layout Section
+代码自动完成 
+\end_layout
+
+\begin_layout Section
+远程使用 vim 
+\end_layout
+
+\begin_layout Chapter
+常用语言开发环境的配置
+\end_layout
+
+\begin_layout Section
+打造 C 语言 IDE 
+\end_layout
+
+\begin_layout Section
+打造 Python 语言 IDE 
+\end_layout
+
+\begin_layout Section
+打造 Shell 脚本 IDE 
+\end_layout
+
+\begin_layout Section
+打造 javascript 脚本 IDE 
+\end_layout
+
+\begin_layout Chapter
+vim 使用进阶 
+\end_layout
+
+\begin_layout Section
+空格、制表符与缩进 
+\end_layout
+
+\begin_layout Section
+模式行 
+\end_layout
+
+\begin_layout Section
+剪贴板详解 
+\end_layout
+
+\begin_layout Section
+vim 的标签与快速跳转 
+\end_layout
+
+\begin_layout Section
+正则表达式详解 
+\end_layout
+
+\begin_layout Section
+自动完成详解 
+\end_layout
+
+\begin_layout Section
+路径设定 
+\end_layout
+
+\begin_layout Section
+make 和 grep 
+\end_layout
+
+\begin_layout Section
+执行外部命令 
+\end_layout
+
+\begin_layout Chapter
+vim 脚本入门 
+\end_layout
+
+\begin_layout Section
+vim 脚本与其他语言的区别 
+\end_layout
+
+\begin_layout Section
+运行第一个自己的 vim 脚本 
+\end_layout
+
+\begin_layout Section
+变量 
+\end_layout
+
+\begin_layout Section
+运算符与表达式 
+\end_layout
+
+\begin_layout Section
+流控制 
+\end_layout
+
+\begin_layout Section
+vim 的不同模式 
+\end_layout
+
+\begin_layout Section
+内置函数 
+\end_layout
+
+\begin_layout Section
+vim 脚本范例 
+\end_layout
+
+\begin_layout Chapter
+vim 脚本进阶
+\end_layout
+
+\begin_layout Section
+自定义自己的函数 
+\end_layout
+
+\begin_layout Section
+vim 与外部系统的交互 
+\end_layout
+
+\begin_layout Section
+vim 内嵌 python 脚本 
+\end_layout
+
+\begin_layout Section
+vim 脚本的调试 
+\end_layout
+
+\begin_layout Section
+制作自己的 vim 插件 
+\end_layout
+
+\begin_layout Chapter
+用 vim 的控制方式使用计算机
+\end_layout
+
+\begin_layout Section
+用 vim 方式浏览网页(pentadactyl 插件介绍) 
+\end_layout
+
+\begin_layout Section
+pentadactyl 的配置进阶 
+\end_layout
+
+\begin_layout Section
+用 vim 方式控制系统(xmonad 窗口管理器介绍)
+\end_layout
+
+\begin_layout Section
+haskell 语法简介 
+\end_layout
+
+\begin_layout Section
+xmonad 的配置进阶
+\end_layout
+
+\begin_layout Chapter
+附录: 
+\end_layout
+
+\begin_layout Section
+vim 技巧索引 
+\end_layout
+
+\begin_layout Section
+vim 内置函数索引 
+\end_layout
+
+\begin_layout Section
+常用插件介绍 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

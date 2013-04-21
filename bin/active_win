@@ -1,0 +1,32 @@
+#!/bin/bash
+
+
+if [ $# -lt 3 ]; then
+    echo   ""
+    echo   " 功能:判断进程是否存在，如果不存在就启动它，如果存在就显示它"
+    echo   ""
+    echo   " 用法: active_win   \$1   \$2   \$3"
+    echo   ""
+    echo   " 参数说明:"
+    echo   "           \$1       进程名"
+    echo   "           \$2       窗口名"
+    echo   "           \$3       程序启动文件"
+    echo   " 取得 $2 窗口名称方法
+    echo   "  wmctrl -l -x
+    echo   " 
+    echo   " 范例:"
+    echo   "                                 \$1         \$2           \$3"
+    echo   " firefox浏览器   : active_win  firefox      Firefox       firefox   "
+    echo   " Terminator      : active_win  terminator   Terminator   terminator"
+    echo   " Gvim            : active_win    gvim         Gvim         gvim"
+    echo   " XMind           : active_win  xmind-bin    XMind      /usr/local/xmind/xmind-bin"
+    echo   " Sqliteman       : active_win  sqliteman    Sqliteman    sqliteman
+    exit 1
+fi
+PIDS=$( ps -ef | grep  $1 | grep -v grep | grep -v active_win ) 
+if [ "$PIDS" != "" ] ; then
+    wmctrl -x -a  $2
+#运行进程
+else
+    sh -c "nohup $3 >/dev/null 2>&1 &"
+fi

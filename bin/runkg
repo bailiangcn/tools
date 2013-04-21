@@ -1,0 +1,4 @@
+#!/bin/bash
+# 执行坚果云
+cd /home/bl/karrigell/
+nohup python Karrigell.py >/dev/null 2>&1 &

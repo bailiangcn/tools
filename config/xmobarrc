@@ -7,11 +7,11 @@ Config { font = "xft:WenQuanYi Zen Hei-10"
               Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
             , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
             , Run Memory ["-t","Mem: <usedratio>%"] 10
-            , Run Com "sh" ["/home/bl/bin/gmail.sh"] "mail" 300
             , Run Swap [] 10
             , Run Com "sh" ["/home/bl/bin/getdate.sh"] "date" 300
             , Run StdinReader
         ]
     , sepChar = "%"
     , alignSep = "}{"
-    , template = "%StdinReader% }{ %cpu% %memory% %swap% %eth0% <fc=#ee9a00>%mail%</fc> <fc=#8695fe>%date%</fc>                                  "}
+    , template = "%StdinReader% }{ %cpu% %memory% %swap% %eth0%  <fc=#8695fe>%date%</fc>                                  "
+}

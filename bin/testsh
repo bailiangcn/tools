@@ -1,0 +1,5 @@
+#!/bin/bash
+#xdotool key ctrl+n BackSpace F3
+xdotool key  ctrl+n shift+Tab shift+Tab Home Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right Right shift+Right shift+End shift+Left ctrl+c Tab Tab ctrl+v
+
+#Tab Tab 

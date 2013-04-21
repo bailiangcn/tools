@@ -1,0 +1,5 @@
+:set editor gvim
+:cd  /home/bl/YUNIO/workspace/testhaskell/
+-- :cd  /home/bl/YUNIO/workspace/realworld_haskell/
+-- :set prompt "ghci>"
+:def hoogle \x -> return $ ":! /home/bl/.cabal/bin/hoogle \"" ++ x ++ "\""

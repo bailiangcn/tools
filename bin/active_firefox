@@ -1,0 +1,18 @@
+#!/bin/bash
+#激活firefox
+#判断进程是否存在，如果不存在就启动它如果存在就显示它
+
+if [ -z $1 ]
+then
+echo "需要参数"
+exit 1
+fi
+
+PIDS=$( pgrep -n firefox ) 
+if [ "$PIDS" != "" ]
+then
+    wmctrl -x -a  Firefox
+#运行进程
+else
+    sh -c "nohup firefox >/dev/null 2>&1 &"
+fi

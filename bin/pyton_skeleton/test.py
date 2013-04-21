@@ -1,4 +1,10 @@
 
+import sys
+import os
+
+sys.path.append(os.curdir)
+sys.path.append(os.path.join(os.pardir, ''))
+
 from unittest import TestCase
 
 
@@ -18,4 +24,3 @@ class simpleTest(TestCase):
 if '__main__' == __name__:
     import unittest
     unittest.main()
-

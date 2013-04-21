@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/bl/Nutstore/test/python/Karrigell-3.1.1/www/playmp3.py", line 45, in <module>
+    pyglet.app.run()
+  File "/usr/local/lib/python2.7/dist-packages/pyglet/app/__init__.py", line 264, in run
+    EventLoop().run()
+  File "/usr/local/lib/python2.7/dist-packages/pyglet/app/xlib.py", line 93, in run
+    sleep_time = self.idle()
+  File "/usr/local/lib/python2.7/dist-packages/pyglet/app/__init__.py", line 187, in idle
+    dt = clock.tick(True)
+  File "/usr/local/lib/python2.7/dist-packages/pyglet/clock.py", line 700, in tick
+    return _default.tick(poll)
+  File "/usr/local/lib/python2.7/dist-packages/pyglet/clock.py", line 303, in tick
+    item.func(ts - item.last_ts, *item.args, **item.kwargs)
+  File "/home/bl/Nutstore/test/python/Karrigell-3.1.1/www/playmp3.py", line 30, in update
+    f = file(LIST_FILENAME, 'r+')
+IOError: [Errno 2] No such file or directory: 'mp3list.0'
