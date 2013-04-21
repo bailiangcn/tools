@@ -2,7 +2,7 @@
 
 xrdb -merge .Xresources
 
-trayer --edge top --margin 1925 --align right --SetDockType true --SetPartialStrut false --expand true --widthtype pixel --width 100 --height 14 --transparent true --alpha 0  --tint 0x000000 &
+trayer --edge top --margin 25 --align right --SetDockType true --SetPartialStrut false --expand true --widthtype pixel --width 100 --height 14 --transparent true --alpha 0  --tint 0x000000 &
 
 gnome-screensaver
 
@@ -27,7 +27,10 @@ feh --bg-tile /usr/share/backgrounds/InthedarkRedux.jpg  &
 nautilus --no-desktop -n &
 
 #启动腾讯通
-/home/bl/bin/rtx.sh &
+#/home/bl/bin/rtx.sh &
+
+#启动gnote
+gnote &
 
 #启动gnote
 /usr/bin/gnote &

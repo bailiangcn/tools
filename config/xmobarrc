@@ -14,5 +14,4 @@ Config { font = "xft:WenQuanYi Zen Hei-10"
         ]
     , sepChar = "%"
     , alignSep = "}{"
-    , template = "%StdinReader% }{ %cpu% %memory% %swap% %eth0% <fc=#ee9a00>%mail%</fc> <fc=#8695fe>%date%</fc>                                  "
-}
+    , template = "%StdinReader% }{ %cpu% %memory% %swap% %eth0% <fc=#ee9a00>%mail%</fc> <fc=#8695fe>%date%</fc>                                  "}

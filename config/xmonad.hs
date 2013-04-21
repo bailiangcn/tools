@@ -59,7 +59,6 @@ main = do
         xmonad  $ withUrgencyHook NoUrgencyHook $ defaultConfig
             { manageHook = myManageHook
             , layoutHook = myLayoutHook  
-            --, layoutHook = layoutHints $ myLayoutHook  
             , borderWidth = myBorderWidth
             , normalBorderColor = myNormalBorderColor
             , focusedBorderColor = myFocusedBorderColor
@@ -82,20 +81,22 @@ main = do
 myManageHook :: ManageHook
 myManageHook = scratchpadManageHook (W.RationalRect 0.25 0.375 0.5 0.35) <+> ( composeAll . concat $
                 [[isFullscreen                  --> doFullFloat
-        , className =? "OpenOffice.org 3.2" --> doShift "5:doc" 
-        , className =?  "Xmessage"  --> doCenterFloat 
-        , className =?  "Zenity"    --> doCenterFloat 
-        , className =? "feh"    --> doCenterFloat 
-        , (  className =? "Minefield" <&&> appName =? "Download" )  --> doCenterFloat
-                , className =? "Gimp"           --> doShift "9:gimp"
-                , className =? "Firefox"           --> doShift "1:web"  --firefox
-                , className =? "Pidgin"           --> doShift "7:chat"
-                , className =? "Skype"           --> doShift "7:chat"
-        , className =? "MPlayer"    --> doShift "8:media"
-        , className =? "Linux1g1g"  --> doShift "8:media"
+        , className =?  "Xmessage"              --> doCenterFloat 
+        , className =?  "Zenity"                --> doCenterFloat 
+        , className =? "feh"                    --> doCenterFloat 
+        , className =? "Gnote"                  --> doCenterFloat 
+        , (className =? "Minefield" <&&> appName =? "Download" )  --> doCenterFloat
+        , className =? "Firefox"                --> doShift "1:web"  
+        , className =? "Gvim"                   --> doShift "3:gvim"
+        , className =? "Evince"                 --> doShift "4:pdf"
+        , className =? "OpenOffice.org 3.2"     --> doShift "5:doc" 
+        , className =? "Pidgin"                 --> doShift "7:chat"
+        , className =? "Skype"                  --> doShift "7:chat"
+        , className =? "MPlayer"                --> doShift "8:media"
+        , className =? "Linux1g1g"              --> doShift "8:media"
+        , className =? "Gimp"                   --> doShift "9:gimp"
         , title =? "new of Windows XP office - VMware Workstation" --> doShift "6:virtual"
-        , title =? "new of Windows XP office - VMware Player" --> doShift "6:virtual"
-        , className =? "Evince"     --> doShift "4:pdf"
+        , title =? "new of Windows XP office - VMware Player"      --> doShift "6:virtual"
         ] ]
                         )  <+> manageDocks 
  
@@ -149,50 +150,48 @@ myLayoutHook  =  onWorkspace "1:web" webL $ onWorkspace "2:code" codeL $ onWorks
     reflectTiled = (reflectHoriz tiled)
     tabLayout = (tabbed shrinkText myTheme)
     full      = noBorders Full
+    hited = Tall 1 (3/100) (1/2) 
  
     --Im Layout
     imLayout = avoidStruts $ smartBorders $ withIM ratio pidginRoster $ reflectHoriz $ withIM skypeRatio skypeRoster (tiled ||| reflectTiled ||| Grid) where
-            chatLayout      = Grid
-            ratio = (1%9)
-            skypeRatio = (1%8)
-            pidginRoster    = And (ClassName "Pidgin") (Role "buddy_list")
-            skypeRoster     = (ClassName "Skype") `And` (Not (Title "Options")) `And` (Not (Role "Chats")) `And` (Not (Role "CallWindowForm"))
+    chatLayout = Grid
+    ratio = (1%9)
+    skypeRatio = (1%8)
+    pidginRoster    = And (ClassName "Pidgin") (Role "buddy_list")
+    skypeRoster     = (ClassName "Skype") `And` (Not (Title "Options")) `And` (Not (Role "Chats")) `And` (Not (Role "CallWindowForm"))
  
     --Gimp Layout
     gimpL = avoidStruts $ smartBorders $ withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full 
- 
+
     --Web Layout
     webL      = avoidStruts $  tabLayout  ||| tiled ||| reflectHoriz tiled ||| full
- 
+
     --VirtualLayout
     fullL = avoidStruts $ full
 
     --CodeLayout
-    codeL      = avoidStruts $  tabLayout  ||| tiled ||| reflectHoriz tiled    
-        
+    codeL  = avoidStruts $  tabLayout  ||| tiled ||| reflectHoriz tiled    
+
     --GvimLayout
-    gvimL      = layoutHints ( Tall 1 (3/100) (1/2) ||| tabLayout  ||| reflectHoriz (Tall 1 (3/100) (1/2) ))
- 
- 
- 
- 
- 
+    gvimL = avoidStruts $ layoutHints ( hited ||| tabLayout  ||| reflectHoriz hited )
+
+
 -------------------------------------------------------------------------------
 ---- Terminal --
 myTerminal :: String
 myTerminal = "urxvt"
- 
+
 -------------------------------------------------------------------------------
 -- Keys/Button bindings --
 -- modmask
 myModMask :: KeyMask
 myModMask = mod4Mask
- 
+
 -- 配置 mod+g 的字体
 --mygsconfig :: HasColorizer
 mygsconfig = defaultGSConfig  { gs_font ="文泉驿等宽正黑"}
- 
- 
+
+
 -- borders
 myBorderWidth :: Dimension
 myBorderWidth = 4
@@ -306,9 +305,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask , xK_c ), spawn "/home/bl/bin/editconfig")
  
     -- volume control
-    , ((0           , 0x1008ff13 ), spawn "amixer -q set Master 2dB+")
-    , ((0           , 0x1008ff11 ), spawn "amixer -q set Master 2dB-")
-    , ((0           , 0x1008ff12 ), spawn "amixer -q set Master toggle")
+    , ((0 , 0x1008ff13 ), spawn "amixer -q set Master 2dB+")
+    , ((0 , 0x1008ff11 ), spawn "amixer -q set Master 2dB-")
+    , ((0 , 0x1008ff12 ), spawn "amixer -q set Master toggle")
  
  
     -- quit, or restart
@@ -325,6 +324,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- mod-[w,e] %! switch to twinview screen 1/2
     -- mod-shift-[w,e] %! move window to screen 1/2
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_e, xK_w] [1,0]
+        | (key, sc) <- zip [xK_w, xK_e] [1,0]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 

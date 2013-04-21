@@ -68,10 +68,12 @@ map <A-C-s> :set nsu!=<A-Tab>
 map <A-S-s> :set nst!=<A-Tab>
 
 " 设置提示链接不用12345
-"set hintkeys=asdfg;lkjh
+set hintkeys=asdfg;lkjh
 
 " 搜索时关闭输入法
-style -name commandline-ime chrome://* #dactyl-commandline-command input {ime-mode: inactive;}
+"style -name commandline-ime chrome://* #dactyl-commandline-command input {ime-mode: inactive;}
+style -name cmd-ime chrome://* #dactyl-commandline-command, #dactyl-statusline-field-commandline-command { ime-mode: disabled; } 
+cmap <A-k> -ex :stytoggle -n cmd-ime
 
 hi Hint text-transform: uppercase;font-family: "Times New Roman"; font-size: 14px; font-weight: bold; color: white !important; background-color: rgba(0, 0, 0, 0.5) !important; border: solid 1px red !important;
 hi Hint::after content: attr(number) !important;
@@ -83,4 +85,34 @@ hi HintImage opacity: .5;
 hi StatusLine color: #00ff00 !important; background-color: white !important; font-weight: bold !important; "font-size: 9pt !important;
 hi StatusLineBroken color: #000000 !important; background: #afafff !important; "font-size: 9pt !important;
 hi StatusLineSecure color: #000000 !important; background: #afffaf !important; "font-size: 9pt !important;
+
+javascript  <<EOF
+makecang = function() { 
+    var u=buffer.URL;
+    var t=buffer.title;
+    cangurl="http://cang.baidu.com/do/add?it="+encodeURIComponent(t)+"&iu="+encodeURIComponent(u);
+    dactyl.execute('tabopen '+cangurl  );
+}
+EOF
+
+" sc 会把当前网页存入百度搜藏
+map sc -js makecang()
+autocmd DOMLoad 'http://cang\.baidu\.com/do/add?' :normal! 4gi
+autocmd PageLoad 'www.google.com.hk/webhp' :normal! gi
+
+
+silent qmark b    http://www.baidu.com/ 
+silent qmark c    http://cang.baidu.com/#%E5%85%A8%E9%83%A8%E5%88%86%E7%B1%BB/1/0/0/%E7%99%BE%E5%BA%A6/0.34393142761727624/0/0 
+silent qmark f    http://fayaa.com/code/new/ 
+silent qmark g    http://www.google.com.hk/webhp?hl=zh-CN&sourceid=cnhp 
+silent qmark h    http://blog.chinaunix.net/space.php?uid=20147410 
+silent qmark l    http://www.linuxeden.com/ 
+silent qmark m    https://mail.google.com/mail/?shva=1#label/%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5 
+silent qmark n    http://news.sina.com.cn/ 
+silent qmark p    http://proxyie.cn/ 
+silent qmark s    https://github.com/bailiangcn/github-example/network 
+silent qmark u    http://forum.ubuntu.org.cn/ 
+silent qmark G    http://progit.org/book/zh/ 
+silent qmark M    http://www.1g1g.com/#27121 
+silent qmark S    https://github.com/bailiangcn/tools/networ
 
