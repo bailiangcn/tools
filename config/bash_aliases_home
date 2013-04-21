@@ -1,0 +1,2 @@
+#alias gvim="UBUNTU_MENUPROXY=0 gvim 2>/dev/null"
+alias gvim="gvim  -f 2>/dev/null"

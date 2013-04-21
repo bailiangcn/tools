@@ -1,0 +1,4 @@
+#!/bin/bash
+# 执行坚果云
+
+nohup ~/.nutstore/dist/bin/nutstore-pydaemon.py >/dev/null 2>&1 &

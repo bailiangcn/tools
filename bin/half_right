@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 把当前窗口左半分
+
+next_monitor_x=1920
+right_height=1175
+left_height=1125
+
+window=`xdotool getwindowfocus`
+
+x=`xwininfo -id $window | grep "Absolute upper-left X" | awk '{print $4}'`
+let width=next_monitor_x/2
+
+# 清除最大化状态
+wmctrl -ir $window -b remove,maximized_vert,maximized_horz
+# move to right
+if [ "$x" -ge $next_monitor_x ]
+then
+    wmctrl  -r :ACTIVE: -e "0, $(($next_monitor_x+$width)),0,$width,$right_height"  
+else
+    wmctrl  -r :ACTIVE:  -e "0, $width,0,$width,$left_height"
+fi
+

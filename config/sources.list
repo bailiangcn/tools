@@ -1,0 +1,31 @@
+## Uncomment the following two lines to add software from Canonical's
+## 'partner' repository.
+## This software is not part of Ubuntu, but is offered by Canonical and the
+## respective vendors as a service to Ubuntu users.
+# deb http://archive.canonical.com/ubuntu precise partner
+# deb-src http://archive.canonical.com/ubuntu precise partner
+
+## This software is not part of Ubuntu, but is offered by third-party
+## developers who want to ship their latest software.
+# deb http://extras.ubuntu.com/ubuntu precise main
+# deb-src http://extras.ubuntu.com/ubuntu precise main
+
+deb http://bl100.tk/ubuntu/ precise main multiverse restricted universe
+deb http://bl100.tk/ubuntu/ precise-backports main multiverse restricted universe
+deb http://bl100.tk/ubuntu/ precise-proposed main multiverse restricted universe
+deb http://bl100.tk/ubuntu/ precise-security main multiverse restricted universe
+deb http://bl100.tk/ubuntu/ precise-updates main multiverse restricted universe
+deb-src http://bl100.tk/ubuntu/ precise main multiverse restricted universe
+deb-src http://bl100.tk/ubuntu/ precise-backports main multiverse restricted universe
+deb-src http://bl100.tk/ubuntu/ precise-proposed main multiverse restricted universe
+deb-src http://bl100.tk/ubuntu/ precise-security main multiverse restricted universe
+deb-src http://bl100.tk/ubuntu/ precise-updates main multiverse restricted universe
+
+#deb http://security.ubuntu.com/ubuntu precise-security main restricted
+#deb-src http://security.ubuntu.com/ubuntu precise-security main restricted
+#deb http://security.ubuntu.com/ubuntu precise-security universe
+#deb-src http://security.ubuntu.com/ubuntu precise-security universe
+#deb http://security.ubuntu.com/ubuntu precise-security multiverse
+#deb-src http://security.ubuntu.com/ubuntu precise-security multiverse
+
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+# 执行坚果云
+
+nohup python ~/karrigell/www/playmp3.py >/dev/null 2>&1 &

@@ -1,17 +1,30 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2011年03月11日 22时23分26秒
+" Last Change:  2011年04月28日 22时28分09秒
 
 " 防止ubuntu 10.04下面看不见中文菜单
 set langmenu=zh_CN
 let $LANG = 'zh_CN'
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+source $VIMRUNTIME/debian.vim
 
 " 调用vim插件管理插件 pathogen (需要安装pathogen.vim)
-call pathogen#runtime_append_all_bundles() 
+"call pathogen#runtime_append_all_bundles() 
 
+
+"调用系统配置
+"source /etc/vim/vimrc
+" 设置vim-addon-manager
+set runtimepath+=~/vim-addons/vim-addon-manager
+call vam#ActivateAddons(["Color_Sampler_Pack","ScrollColors",
+            \ "The_NERD_tree","bufexplorer.zip",
+            \ "vimim",
+            \ ])  
+
+let g:vim_addon_manager['plugin_sources']['vimim'] = {"type":"svn", "url":"http://vimim.googlecode.com/svn/trunk"}
+"            "VimIM_-_Vim_Input_Method",
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                      为方便编辑vimrc设置部分                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -31,13 +44,13 @@ call pathogen#runtime_append_all_bundles()
 "vim的基本设置
     set nocp "设置不兼容模式
     syntax on "打开语法高亮
-	if has("gui_running")
-		set guioptions-=T   "关闭工具栏
-		colorscheme darkblue "载入色彩方案
-	else
-		set background=dark
-		colorscheme zellner
-	endif
+    if has("gui_running")
+        set guioptions-=T   "关闭工具栏
+        colorscheme desertEx "载入色彩方案
+    else
+        set background=dark
+        colorscheme zellner
+    endif
     set mouse=a "设置鼠标支持
     set nobackup "取消自动备份
     setlocal noswapfile "不要生成swap文件
@@ -46,9 +59,9 @@ call pathogen#runtime_append_all_bundles()
     set showcmd "设置显示未完成的命令
     set autoindent "设置自动缩进
     set sessionoptions+=resize "保存窗口大小
-	set scrolloff=7  "光标上下两侧最少保留的屏幕行数
-	set cmdheight=2  "设置命令行高度为2行
-	
+    set scrolloff=7  "光标上下两侧最少保留的屏幕行数
+    set cmdheight=2  "设置命令行高度为2行
+    
 " 设置中文支持
     set encoding=utf-8
     set fileencodings=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
@@ -62,27 +75,32 @@ call pathogen#runtime_append_all_bundles()
     \ endif
 
 "反显光标当前行颜色
-	if has("gui_running")
-	  set cursorline
-	  hi cursorline guibg=#333333
-	endif
+    if has("gui_running")
+      set cursorline
+      hi cursorline guibg=#333333
+    endif
 
 "设置高亮搜索、输入字符串就显示匹配点
-	set hlsearch	"搜索出之后高亮关键词
-	set incsearch	"搜索时高亮关键词
+    set hlsearch    "搜索出之后高亮关键词
+    set incsearch   "搜索时高亮关键词
     set ignorecase   "搜索时忽略大小写
     nmap <silent> <leader><cr> :noh<cr>  ", 快速清除高亮搜索
 
 "关于标签的快捷键
     map <leader>tn :tabnew%<cr>   "将当前内容在新标签中打开
     map <leader>te :tabedit<cr>   "打开空白新标签
-	map <leader>tc :tabclose<cr>  "关闭当前标签
-	map <leader>tm :tabmove   
-	"移动当前标签,使用方法为
-	":tabmove [N]把当前标签页移到第N个标签页之后.
-	"用0使用当前标签页成为首个标签页.如果没有N,
-	"当前标签页成为最后一个.
+    map <leader>tc :tabclose<cr>  "关闭当前标签
+    map <leader>tm :tabmove   
+    "移动当前标签,使用方法为
+    ":tabmove [N]把当前标签页移到第N个标签页之后.
+    "用0使用当前标签页成为首个标签页.如果没有N,
+    "当前标签页成为最后一个.
 
+" 设置窗口ctrl+hjkl快速切换
+nn <c-h> <c-w>h
+nn <c-j> <c-w>j
+nn <c-k> <c-w>k
+nn <c-l> <c-w>l
 "设置其他快捷键
     map <F7> :vsplit<ENTER>:edit `pwd`<ENTER>i
     "F7 打开左侧垂直窗口选择待编辑的文件
@@ -90,23 +108,51 @@ call pathogen#runtime_append_all_bundles()
 " vim中间临时用root权限保存文件
     cmap w!! %!sudo tee > /dev/null %
 
+" rqzs 输入中文日期
+imap rqzs <c-r>=strftime("20%y-%m-%d %H:%M:%S  字数: ")<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "               与插件相关的设置                                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "vimim插件的配置（需要安装vimim插件）
 "
-    "设置CTRL-\转换当前拼音为汉字
-    "let g:vimim_one_key=1
-	"逆向最大匹配,逐词上屏
-	"let g:vimim_match_word_after_word=1
-	"动态造词 v_ctrl-6 会出现当前选择的词的拼音串,可以用v_ctrl-6 存入字典生成新的词组
-	"let g:vimim_save_new_entry=1
-	"见字找码 v_ctrl-6 
-	"let g:vimim_reverse_loopkup=1
-    let g:vimim_chinese_input_mode = "static"
-    let g:vimim_cloud_sougou=3
+    " 静态模式
+    let g:vimim_chinese_input_mode = "static" " 'dynamic' 动态输入 'static' 静态输入
+    let g:vimim_onekey_hit_and_run = 0  " 0 点石成金或者连续 1 点石成金 (缺省)
+    let g:vimim_onekey_is_tab = 1  " 0 (缺省) 1 Tab也是点石键 2 只有Tab是点石键 
+
+" :let g:vimim_chinese_input_mode = "static" " 'dynamic' 动态输入 'static' 静态输入
+" :let g:vimim_backslash_close_pinyin = 0  "0 (缺省)
+" :let g:vimim_chinese_punctuation = 0  "0 显示全角(缺省)
+" :let g:vimim_cloud_google = 0 "0 google云输入(缺省) 
+" :let g:vimim_cloud_mycloud = 0  "0 私有云输入(缺省)
+" :let g:vimim_cloud_qq = 0  "0 qq云输入(缺省)
+" :let g:vimim_cloud_sogou = 0 "0 sogou云输入(缺省) 888 想云就云 -1 彻底关闭云输入 N 每输入N个字就激活云输入
+" :let g:vimim_ctrl_h_to_switch = 0  "1 用ctrl+h 切换输入法
+" :let g:vimim_ctrl_space_to_toggle = 0  "1 用ctrl+space 开关输入法
+" :let g:vimim_cursor_color = 0  "0 缺省光标颜色为绿色(缺省) 'purple' 光标颜色
+" :let g:vimim_custom_color = 0  "0 彻底关闭颜色选项 1 缺省菜单颜色(缺省) 2 关闭菜单颜色显示
+" :let g:vimim_custom_label = 0  "0 不显示标签 1 显示标签(缺省)
+" :let g:vimim_custom_menu = 0  "0 隐藏编码提示(缺省) 1 显示编码提示
+" :let g:vimim_data_directory = 0  "0 (缺省)
+" :let g:vimim_data_file = 0  " 0 (缺省)
+" :let g:vimim_data_file_encoding = 0  "0 utf-8(缺省) 'chinese' 词库编码是chinese
+" :let g:vimim_debug = 0  " 0 (缺省) 
+" :let g:vimim_digit_4corner = 0  "0 五笔画(缺省) 1 四角号码
+" :let g:vimim_hjkl_directory = 0  "0 缺省是 plugin/
+" :let g:vimim_imode_pinyin = 0  "0 自动设置(缺省)
+" :let g:vimim_latex_suite = 0  "0 :(缺省) 1 不转换单双引号
+" :let g:vimim_loop_pageup_pagedown = 0  "0 翻页不循环 1 翻页循环(缺省)
+" :let g:vimim_more_candidates = 0 "0 (缺省) 5 每输入5个字就激活 
+" :let g:vimim_onekey_hit_and_run = 0  " 0 点石成金或者连续 1 点石成金 (缺省)
+" :let g:vimim_onekey_is_tab = 0  " 0 (缺省) 1 Tab也是点石键 2 只有Tab是点石键 
+" :let g:vimim_search_next = 0 "1 开启(缺省) 
+" :let g:vimim_shuangpin = 0  "0 无双拼(缺省) 'abc' 智能abc双拼 'ms' 微软双拼 
+            " 'nature' 自然码双拼 'plusplus' 拼音加加双拼 'purple' 紫光双拼 'flypy' 小鹤双拼
+" :let g:vimim_use_cache = 0  "0 不用缓存(缺省) 1 使用缓存
 "
+
 "project插件配置(需要安装project插件)
 " \r  读入当前目录文件 
     let g:proj_window_increment=50
@@ -118,19 +164,19 @@ call pathogen#runtime_append_all_bundles()
 "minibufexpl插件配置(需要安装minibufexpl插件)
 "ctrl+tab shift+ctrl+tab 切换缓冲区里的文件
     "设置用Control + [hjkl]在缓冲区窗口移动
-    let g:miniBufExplMapWindowNavVim = 1
-    let g:miniBufExplMapWindowNavArrows = 1
-    let g:miniBufExplMapCTabSwitchBufs = 1
-    let g:miniBufExplModSelTarget = 1
-    let g:miniBufExplMapCTabSwitchWindows = 1
-    map <Leader>t :TMiniBufExplorer<cr>  "设置,t交替出现minibuffer窗口
+"    let g:miniBufExplMapWindowNavVim = 1
+"    let g:miniBufExplMapWindowNavArrows = 1
+"    let g:miniBufExplMapCTabSwitchBufs = 1
+"    let g:miniBufExplModSelTarget = 1
+"    let g:miniBufExplMapCTabSwitchWindows = 1
+"    map <Leader>t :TMiniBufExplorer<cr>  "设置,t交替出现minibuffer窗口
 
 "
 "TagList插件配置(需要安装TagList插件)
 "
 "进行Taglist的设置
 "TlistUpdate可以更新tags
-    map <F2> :Tlist<CR> "按下F2就可以呼出了
+"    map <F2> :Tlist<CR> "按下F2就可以呼出了
     let Tlist_Ctags_Cmd='ctags' "因为我们放在环境变量里，所以可以直接执行
     let Tlist_Use_Right_Window=0 "让窗口显示在右边，0的话就是显示在左边
     let Tlist_Show_One_File=0 "让taglist可以同时展示多个文件的函数列表
@@ -148,19 +194,34 @@ call pathogen#runtime_append_all_bundles()
     "设置vim字典翻译功能
     set keywordprg=sdcv
 
+""""""""""""""""""""""""""""""
+" winManager setting
+""""""""""""""""""""""""""""""
+let g:NERDTree_title="[NERD Tree]" 
+let g:winManagerWindowLayout='NERDTree|TagList,BufExplorer'
+function! NERDTree_Start()
+    exec 'NERDTree'
+endfunction
+function! NERDTree_IsValid()
+    return 1
+endfunction
+nmap wm :if IsWinManagerVisible() <BAR> WMToggle<CR> <BAR> else <BAR> WMToggle<CR>:q<CR> endif <CR><CR>
+nmap <F3> :if IsWinManagerVisible() <BAR> WMToggle<CR> <BAR> else <BAR> WMToggle<CR>:q<CR> endif <CR><CR>
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "               通用代码相关的设置                                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    set number		"设置显示行号
-	set expandtab
+    set number      "设置显示行号
+    set expandtab
     set tabstop=4
     set softtabstop=4
     set shiftwidth=4
-	set wildmenu  "命令行补全
-	set showmatch	"插入括号时短暂跳转到匹配的对应括号
-	set matchtime=2 "跳转到匹配括号的时间
+    set wildmenu  "命令行补全
+    set showmatch   "插入括号时短暂跳转到匹配的对应括号
+    set matchtime=2 "跳转到匹配括号的时间
+
 
 
     filetype plugin on      "允许使用ftplugin目录下的文件类型特定脚本
@@ -172,7 +233,7 @@ call pathogen#runtime_append_all_bundles()
 
 "设置以缩进的方式自动折叠和设置快捷方式
     set foldmethod=indent
-    map <F3>    zO   "打开折叠
+"    map <F3>    zO   "打开折叠
     map <F4>    zc   "关闭折叠
     map <F5>    zR    "打开所有折叠
     map <F6>    zM   "关闭所有折叠
@@ -184,8 +245,8 @@ call pathogen#runtime_append_all_bundles()
     :inoremap } <c-r>=ClosePair('}')<CR>
     :inoremap [ []<ESC>i
     :inoremap ] <c-r>=ClosePair(']')<CR>
-    :inoremap < <><ESC>i
-    :inoremap > <c-r>=ClosePair('>')<CR>
+    ":inoremap < <><ESC>i
+    ":inoremap > <c-r>=ClosePair('>')<CR>
 
 "保存代码文件前自动修改最后修改时间
 
@@ -245,7 +306,7 @@ iabbrev utf8 utf-8
 iabbrev en encode('utf-8')
 "Python 文件的一般设置，比如不要 tab 等
     "设置自动缩进为4,插入模式里: 插入 <Tab> 时使用合适数量的空格。
-    "要插入实际的制表，可用 CTRL-V<Tab>	
+    "要插入实际的制表，可用 CTRL-V<Tab> 
     autocmd FileType python setlocal expandtab | setlocal shiftwidth=4 |
                 \setlocal softtabstop=4 | setlocal tabstop=4
 
@@ -270,7 +331,7 @@ iabbrev en encode('utf-8')
 "在正常模式下输入\t 会在文件末尾加入测试语句,需要在test后面加上实际的测试文件名
     autocmd FileType python map <silent>\t G:r ~/.vim/skeleton/myskeleton.py<cr>  zR<cr> /from.*\*\*\*<cr>  wcwtest
 "在输入模式下$c添加注释
-	au FileType python inoremap <buffer> $c <esc>O#<cr>##<space><cr>#<esc>kA
+    au FileType python inoremap <buffer> $c <esc>O#<cr>##<space><cr>#<esc>kA
 "设置python 的调试
 "ctrl+F7  设置断点   ctrl+F8  移除断点  F9  执行
 "

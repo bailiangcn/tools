@@ -4,7 +4,7 @@
 #   直接执行 sh install.sh 进行安装。
 #   运行完成后关闭终端,在新终端中测试
 
-mkdir -p $HOME/bin
+#mkdir -p $HOME/bin
 cp chsdir chs_completion $HOME/bin/
 chmod +x $HOME/bin/chsdir
 

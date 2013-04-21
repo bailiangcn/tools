@@ -1,0 +1,38 @@
+This is XeTeX, Version 3.1415926-2.4-0.9998 (TeX Live 2012/Debian) (format=xelatex 2013.2.28)  6 MAR 2013 20:55
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**blank3b.tex
+(./blank3b.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+)
+*q
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> q
+     
+? q
+OK, entering \batchmode...
+Missing character: There is no q in font nullfont!
+! Emergency stop.
+<*> q
+     
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 4 strings out of 495716
+ 42 string characters out of 3188883
+ 45143 words of memory out of 3000000
+ 3245 multiletter control sequences out of 15000+200000
+ 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 5i,0n,4p,5b,14s stack positions out of 5000i,500n,10000p,200000b,50000s
+No pages of output.

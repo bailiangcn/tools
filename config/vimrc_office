@@ -1,0 +1,904 @@
+" vim:ts=4:sw=4:ft=vim:expandtab:set fdm=marker:
+" 
+" 工作用的vimrc
+"
+" Maintainer:    白亮
+" Last Change:  2013年04月18日
+
+" 防止ubuntu 10.04下面看不见中文菜单  "{{{
+
+set langmenu=zh_CN
+"let $LANG = 'zh_CN'
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+"}}}
+
+ "应用ubuntu系统的默认配制"{{{
+
+if !exists('addon_list') "如果vim已经启动,不要重新初始化 
+   runtime! debian.vim
+endif
+"}}}
+"}}}1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                       必须放在头部的配置 {{{1                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" 设置vim-addon-manager插件  {{{1
+"
+let addon_list=[]
+set runtimepath+=~/vim-addons/vim-addon-manager
+set runtimepath+=~/vim-addons/mysnip
+let addon_list += ["Colour_Sampler_Pack"]
+let addon_list += [ "ScrollColors" ]
+let addon_list += [ "FuzzyFinder"]
+let addon_list += [ "The_NERD_Commenter"]
+let addon_list += [ "surround"]
+"let addon_list += [ "snipmate"]
+"let addon_list += [ "snipmate-snippets"]
+let addon_list += [ "fugitive"] 
+let addon_list += [ "EasyMotion"]
+let addon_list += [ "git-vim"]
+let addon_list += [ "ShowMarks"]
+let addon_list += [ "Marks_Browser"]
+let addon_list += [ "YankRing"]
+let addon_list += [ "taglist"]
+let addon_list += [ "TaskList"]
+let addon_list += [ "sessionman"]
+"let addon_list += [ "minibufexplorer"]
+"let addon_list += [ "Tagbar"]
+let addon_list += [ "VimIM"]
+
+" 和bash相关
+let addon_list += [ "bash-support"]
+
+" 和python相关
+let addon_list += [ "vim-flake8"]
+let addon_list += [ "pytest"]
+let addon_list += [ "Gundo"]
+let addon_list += [ "python_pydoc"]
+let addon_list += [ "indentpython%3461"]
+"需要安装,但是不需要激活,使用他的字典支持补全
+"let addon_list += [ "Pydiction"]
+
+" 和haskell相关
+"let addon_list += [ "neco-ghc"]
+"let addon_list += [ "neocomplcache"]
+"let addon_list += [ "syntaxhaskell"]
+"
+"let addon_list += [ "The_NERD_tree"]
+"let addon_list += [ "SuperTab_continued."]
+
+call vam#ActivateAddons(addon_list, {'auto_install' : 0})
+
+" }}}1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+"                      为快速编辑vimrc设置部分     {{{1                        "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"设置默认的mapleader为逗号"{{{
+let mapleader=","
+"设置快速编辑.vimrc文件 ,e 编辑.vimrc
+map <silent> <leader>e :call SwitchToBuf("~/.vimrc")<cr>
+"map <silent> <leader>e :e ~/.vimrc<cr>                                                                        
+" 设置 ,s 快速重新应用 .vimrc
+map <silent> <leader>s :source ~/.vimrc<cr>
+"保存.vimrc文件后会自动调用新的.vimrc
+autocmd! bufwritepost .vimrc source ~/.vimrc"}}}
+" }}}1
+" 快速编辑错题集文件
+map <silent> <leader>l :call SwitchToBuf("~/Nutstore/err/3b/error3b.tex")<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+"                         vim通用设置部分     {{{1                             ""{{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" 设置中文编码  {{{2 
+"
+set fileencodings=ucs-bom,utf-8,cp936
+set fileencoding=utf-8
+set encoding=utf-8
+set ambiwidth=double
+" }}}2
+
+"其他设置 {{{2
+set nocompatible "设置不兼容模式
+filetype plugin indent on "自动检测文件类型、插件、缩进
+syntax enable "打开语法高亮
+if has("gui_running")
+    " 在Gvim环境里
+    set guioptions-=T  "关闭工具栏
+    set guioptions-=m  "关闭菜单
+    colorscheme candycode "载入色彩方案 必须安装 Color_Sampler_Pack插件
+    set cursorline    "反显光标当前行颜色
+else
+    " 在终端环境里
+    set background=dark
+    colorscheme ron "载入色彩方案  必须安装 Color_Sampler_Pack插件
+
+endif
+"
+" 设置窗口最大化
+"autocmd GUIEnter * winsize 167 41     "14寸屏幕
+autocmd GUIEnter * winsize 192 66      "1920*1200
+autocmd GUIEnter * winpos 0 0 
+
+set mouse=a "设置鼠标支持
+"set nobackup "取消自动备份
+"setlocal noswapfile "不要生成swap文件
+set dir=/tmp    "指定swap文件的位置
+set bufhidden=hide "当buffer被丢弃时隐藏
+set autoread "设置自动读取文件当外部文件被修改时
+set showcmd "设置显示未完成的命令
+set scrolloff=7  "光标上下两侧最少保留的屏幕行数
+set wildmenu  "命令行补全
+set number		"设置显示行号
+set cmdheight=2  "设置命令行高度为2行
+"set guifont=Courier\ 10\ Pitch\ 12
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 12
+set autoindent "设置自动缩进
+set backspace=indent,eol,start "设置 Backspace 的回退删除时遇到边界的效果
+set whichwrap=b,s,<,>,[,] "设置左右方向键到边界的效果
+set expandtab "使用空格代替 tab
+set tabstop=4 "1个Tab换成4个空格
+set shiftwidth=4 "自动缩进时的宽度4个空格
+set smarttab "能够一次性删除模拟的tab
+set completeopt=menu,longest "设置补全状态,ctrl+L进行最长补全
+set isfname-== isfname-=, "在,=后面可以补全文件名
+"set virtualedit=all "设置虚拟编辑区
+set modeline "支持模式行
+"set viminfo='500,:500,<500,s10,h,f1 "设置vim自动保存的信息
+set viminfo='500,:500,<500,s10,h "设置vim自动保存的信息
+"set foldcolumn=2 "设置折叠栏宽度2 
+
+"
+"设置高亮搜索、输入字符串就显示匹配点  {{{2
+"
+set hlsearch	"搜索出之后高亮关键词
+set incsearch	"搜索时高亮关键词
+set ignorecase   "搜索时忽略大小写
+nmap <silent> <leader><cr> :noh<cr>  ", 快速清除高亮搜索
+" }}}2
+
+" 关于标签页的标题修改 "{{{
+" 使用了自定义函数  GuiTabLabel()
+set showtabline=2 " always show tabs in gvim, but not vim
+set guitablabel=%{GuiTabLabel()}"}}}
+
+"
+" 设置窗口ctrl+hjkl快速切换 {{{2
+"
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+" }}}2
+" 设置窗口ctrl+shift+上下左右键改变窗口大小"{{{
+nnoremap <C-S-Left> 5<c-w>< 
+nnoremap <C-S-Down> 5<c-w>-
+nnoremap <C-S-Up> 5<c-w>+
+nnoremap <C-S-Right> 5<c-w>>"}}}
+" 设置标签alt+ctrl+左右键移动标签"{{{
+nnoremap <silent> <M-C-left> :if tabpagenr() == 1\|exe "tabm ".tabpagenr("$")\|el\|exe "tabm ".(tabpagenr()-2)\|en<CR>
+nnoremap <silent> <M-C-right> :if tabpagenr() == tabpagenr("$")\|tabm 0\|el\|exe "tabm ".tabpagenr()\|en<CR>"}}}
+" 设置alt+hj键切换标签"{{{
+nnoremap <silent> <M-h> gT
+nnoremap <silent> <M-l> gt
+"}}}
+" 设置ctrl+左右键切换缓冲区"{{{
+nnoremap <silent> <C-left> :bNext<cr>
+nnoremap <silent> <C-right> :bnext<cr>
+"}}}
+" 设置alt+]来在新的标签页显示tag"{{{
+nnoremap <M-]> <c-w><c-]><c-w>T
+"}}}
+" 设置ctrl+上下键显示菜单"{{{
+map <silent> <C-Down> :if &guioptions =~#'T'<Bar> 
+            \set guioptions-=T <Bar>
+            \set guioptions-=m <bar>
+        \endif<CR>
+
+map <silent> <C-Up> :if &guioptions !~#'T'<Bar> 
+            \set guioptions+=T <Bar>
+            \set guioptions+=m <Bar>
+        \endif<CR>
+"}}}
+"
+" 设置ctrl+c ctrl+v 拷贝粘贴  {{{2 
+"
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
+" }}}2
+"
+" 设置缩写
+"
+" 设置th为新开页面帮助
+cnoreabbrev th tab help
+cnoreabbrev me mksession! ~/.vim/etool.vim
+cnoreabbrev se source ~/.vim/etool.vim
+
+"
+"将当前查找的所有匹配行导入到另一窗口
+"
+nnoremap <silent>gp :let @p=@_<CR>:g/<C-R>//y P<CR>:new<CR>pdkyG
+" }}}1
+" "}}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+"                        通用插件设置部分   {{{1                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"NERD Tree 配置"{{{
+"
+if count(addon_list,'The_NERD_tree')
+    let NERDChristmasTree=1 " 文件目录使用树状结构显示
+    let NERDTreeAutoCenter=1 " 当光标移动超过一定距离时自动将焦点调整到屏中心
+    let NERDTreeBookmarksFile=$HOME.'/NerdBookmarks.txt' " 指定书签文件位置
+    let NERDTreeMouseMode=2 " 鼠标单击打开目录,双击打开文件
+    let NERDTreeShowBookmarks=1 " 显示书签列表                                      
+    let NERDTreeShowFiles=1 " 显示文件
+    let NERDTreeShowHidden=1 " 显示隐藏文件
+    let NERDTreeShowLineNumbers=1 " 显示行号
+    let NERDTreeWinPos='left' "NERD 窗口位置在左侧
+    let NERDTreeWinSize=60 "NERD 窗口宽度
+    nnoremap <silent> <leader>f :NERDTreeToggle<CR> | "设置NERDTree的调用快捷键<leader>f
+    nnoremap <silent> <leader>nf :NERDTreeFind<CR>  | "设置NERDTree显示当前文件位置<leader>nf
+endif
+"}}}
+"
+"vimim配制"{{{
+"
+if count(addon_list,'vimim')
+"    let g:vimim_onekey_hit_and_run = 1 
+    let g:vimim_chinese_input_mode='static' 
+    "let g:vimim_cloud='baidu,sogou,qq,google'  
+    let g:vimim_cloud='sogou,qq'  
+endif
+"}}}
+"
+" showmarks 插件设置{{{
+"
+if count(addon_list,'ShowMarks')
+    let showmarks_enable = 1 " ShowMarks伴随Vim一同启动
+    "设置a-zA-Z为显示标记
+    let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+    let showmarks_ignore_type = "hqm" " 忽略help, quickfix和不可编辑缓冲区的标记
+    let showmarks_hlline_lower = 1 "高亮显示小写标记行
+    let showmarks_hlline_upper = 1 "高亮显示大写标记行
+
+    " 设置标记行的颜色
+    highlight ShowMarksHLl  guibg=darkgreen
+    highlight ShowMarksHLu  guibg=darkblue
+endif
+"}}}
+"
+" marksbrowser 插件设置"{{{
+"
+if count(addon_list,'Marks_Browser')
+    nmap <silent> <leader>mk :MarksBrowser<cr> "定义,mk激活marksbrowser插件
+endif"}}}
+"
+" yankring 插件设置"{{{
+"
+if count(addon_list,'YankRing')
+    nnoremap <silent> <F11> :YRShow<CR> “ 设置正常模式快捷键F11显示yankring窗口
+    inoremap <silent> <F11> <ESC>:YRShow<cr> “ 设置插入模式快捷键F11显示yankring窗口
+endif
+"}}}
+"
+" supertab 插件设置"{{{
+"
+if count(addon_list,'SuperTab_continued.')
+    let g:SuperTabDefaultCompletionType="context"
+    let g:snips_author1='白亮'
+    let g:snips_trigger_key='<f2>'
+endif
+"}}}
+"
+" BufExplorer 插件设置"{{{
+"
+"let g:bufExplorerDefaultHelp=0       " 显示默认帮助信息
+"let g:bufExplorerDetailedHelp=0      " 显示详细帮助
+"let g:bufExplorerFindActive=1        " 移动到激活窗口
+"let g:bufExplorerShowRelativePath=1  " Show relative paths.
+"let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+"let g:bufExplorerSplitRight=0        " Split left.
+"let g:bufExplorerUseCurrentWindow=1  " Open in new window.
+"autocmd BufWinEnter /[Buf/ List/] setl nonumber
+"
+"}}}
+"
+" NERD_Comment设置"{{{
+" 
+    "imap <F3>  <plug>NERDCommenterInInsert
+    "}}}
+"
+" mru设置"{{{
+"
+if count(addon_list,'mru')
+    let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*\|\.tmp$\|\.cnx$'  " 禁止保存该目录文件
+    "let MRU_Include_Files = '\.c$\|\.h$'             " 只保存指定类型文件
+    let MRU_Include_Files = '' 
+    let MRU_Add_Menu = 0 "禁止更改菜单
+    nnoremap <silent> <leader>nm :MRU<CR>  ",nm快捷键打开mru窗口 
+    nnoremap <leader>nM :MRU  | ",nM快捷键出现命令提示行等待输入文件名 
+endif
+"}}}
+"
+" taglist"{{{
+"
+if count(addon_list,'taglist')
+    nnoremap <silent> <F3> :TlistToggle<cr>
+    "nnoremap <silent> <C-F3> :TlistOpen<cr>
+    let Tlist_Highlight_Tag_On_BufEnter=0
+    let Tlist_Close_On_Select=1    "选择后自动关闭
+    let Tlist_Process_File_Always = 1
+    let Tlist_Exit_OnlyWindow=1    "只剩taglist窗口时关闭vim
+    let Tlist_File_Fold_Auto_Close = 1
+    let Tlist_GainFocus_On_ToggleOpen = 1   "TlistToggle打开taglist时，输入焦点在taglist中
+	let Tlist_WinWidth = 40
+endif
+"}}}
+"
+" Tagbar"{{{
+"
+if count(addon_list,'Tagbar')
+    nmap <silent> <F4> :TagbarToggle<CR>
+    "let g:tagbar_width = 30
+    let g:tagbar_left = 1
+    let g:tagbar_autofocus = 1
+endif
+"}}}
+"
+" FuzzyFinder 配置"{{{
+"
+"let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', ]
+let g:fuf_modesDisable = []
+let g:fuf_mrufile_maxItem = 400
+let g:fuf_mrucmd_maxItem = 400
+let g:fuf_reuseWindow = 1 "每次都重新打开窗口 
+let g:fuf_keyNextPattern = '<C-z>'
+" Fuf {{{
+nnoremap <silent> fb     :FufBuffer<CR>
+nnoremap <silent> ff     :FufFileWithCurrentBufferDir<CR>
+nnoremap <silent> fF     :FufFileWithFullCwd<CR>
+nnoremap <silent> f<C-f> :FufFile<CR>
+nnoremap <silent> fo     :FufCoverageFileChange<CR>
+nnoremap <silent> f<C-o> :FufCoverageFileRegister<CR>
+nnoremap <silent> fd     :FufDirWithCurrentBufferDir<CR>
+nnoremap <silent> fD     :FufDirWithFullCwd<CR>
+nnoremap <silent> f<C-d> :FufDir<CR>
+nnoremap <silent> fn     :FufMruFile<CR>
+nnoremap <silent> fN     :FufMruFileInCwd<CR>
+nnoremap <silent> fm     :FufMruCmd<CR>
+nnoremap <silent> fu     :FufBookmarkFile<CR>
+nnoremap <silent> f<C-u> :FufBookmarkFileAdd<CR>
+vnoremap <silent> f<C-u> :FufBookmarkFileAddAsSelectedText<CR>
+nnoremap <silent> fi     :FufBookmarkDir<CR>
+nnoremap <silent> f<C-i> :FufBookmarkDirAdd<CR>
+nnoremap <silent> ft     :FufTag<CR>
+nnoremap <silent> f<C-]> :FufTagWithCursorWord!<CR>
+nnoremap <silent> f,     :FufBufferTag<CR>
+nnoremap <silent> f}     :FufBufferTagWithCursorWord!<CR>
+vnoremap <silent> f}     :FufBufferTagWithSelectedText!<CR>
+nnoremap <silent> f.     :FufBufferTagAll<CR>
+nnoremap <silent> f]     :FufBufferTagAllWithCursorWord!<CR>
+vnoremap <silent> f]     :FufBufferTagAllWithSelectedText!<CR>
+nnoremap <silent> fg     :FufTaggedFile<CR>
+nnoremap <silent> fj     :FufJumpList<CR>
+nnoremap <silent> fc     :FufChangeList<CR>
+nnoremap <silent> fq     :FufQuickfix<CR>
+nnoremap <silent> fl     :FufLine<CR>
+nnoremap <silent> fh     :FufHelp<CR>
+nnoremap <silent> fe     :FufEditDataFile<CR>
+nnoremap <silent> fr     :FufRenewCache<CR>
+"}}}
+"
+" F1和shift+F1调用FuzzyFinder命令行菜单""{{{
+"
+function! GetAllCommands()"{{{
+  redir => commands
+  silent command
+  redir END
+  return map((split(commands, "\n")[3:]),
+      \      '":" . matchstr(v:val, ''^....\zs\S*'')')
+endfunction"}}}
+
+" 自定义命令行
+let g:fuf_com_list=[]"{{{
+    """""""""""""超过本行双引号宽度的内容会被隐藏"""""""""""""""""""""""""""""""""""""""""""""""
+    let g:fuf_com_list += [':exe ''"|    fb       --file search in all buffers             |        --''|:FufBuffer']
+    let g:fuf_com_list += [':exe ''"|    ff       --file search in <current buffer dir>    |        --''|:FufFileWithCurrentBufferDir']
+    let g:fuf_com_list += [':exe ''"|    fF       --file search by [full path]             |        --''|:FufFileWithFullCwd']
+    let g:fuf_com_list += [':exe ''"|    f<C-f>   --file search by 相对路径                |        --''|:FufFile']
+    let g:fuf_com_list += [':exe ''"|    fo       --coverage file                          |        --''|:FufCoverageFileChange']
+    let g:fuf_com_list += [':exe ''"|    f<C-o>   --add new coverage type                  |        --''|:FufCoverageFileRegister']
+    let g:fuf_com_list += [':exe ''"|    fd       --<current buffer dir> cd                |        --''|:FufDirWithCurrentBufferDir']
+    let g:fuf_com_list += [':exe ''"|    fD       --cd [full path]                         |        --''|:FufDirWithFullCwd']
+    let g:fuf_com_list += [':exe ''"|    f<C-d>   --cd 相对路径                            |        --''|:FufDir']
+    let g:fuf_com_list += [':exe ''"|    fn       --file mru open files                    |        --''|:FufMruFile']
+    let g:fuf_com_list += [':exe ''"|    fN       --file mru by current dir                |        --''|:FufMruFileInCwd']
+    let g:fuf_com_list += [':exe ''"|    fm       --vim command mru                        |        --''|:FufMruCmd']
+    let g:fuf_com_list += [':exe ''"|    fu       --bookmarks file                         |        --''|:FufBookmarkFile']
+    let g:fuf_com_list += [':exe ''"|    f<C-u>   --add bookmarks file                     |        --''|:FufBookmarkFileAdd']
+    let g:fuf_com_list += [':exe ''"|    f<C-u>   --select text  bookmarks file            |        --''|:FufBookmarkFileAddAsSelectedText"']
+    let g:fuf_com_list += [':exe ''"|    fi       --bookmarks dir                          |        --''|:FufBookmarkDir']
+    let g:fuf_com_list += [':exe ''"|    f<C-i>   --add bookmarks dir                      |        --''|:FufBookmarkDirAdd']
+    let g:fuf_com_list += [':exe ''"|    ft       --tag search by tags file                |        --''|:FufTag']
+    let g:fuf_com_list += [':exe ''"|    f<C-]>   --cursor word tag by tags file           |        --''|:FufTagWithCursorWord!']
+    let g:fuf_com_list += [':exe ''"|    f,       --current buffer tag                     |        --''|:FufBufferTag']
+    let g:fuf_com_list += [':exe ''"|    f}       --current buffer selected text tag       |        --''|:FufBufferTagWithSelectedText!']
+    let g:fuf_com_list += [':exe ''"|    f}       --current buffer cursor word tag         |        --''|:FufBufferTagWithCursorWord!']
+    let g:fuf_com_list += [':exe ''"|    f.       --all buffer tag                         |        --''|:FufBufferTagAll']
+    let g:fuf_com_list += [':exe ''"|    f]       --all buffer selected text tag           |        --''|:FufBufferTagAllWithSelectedText!"']
+    let g:fuf_com_list += [':exe ''"|    f]       --all buffer cursor word tag             |        --''|:FufBufferTagAllWithCursorWord!']
+    let g:fuf_com_list += [':exe ''"|    fg       --file search in tags                    |        --''|:FufTaggedFile']
+    let g:fuf_com_list += [':exe ''"|    fj       --jump list                              |        --''|:FufJumpList']
+    let g:fuf_com_list += [':exe ''"|    fc       --change list                            |        --''|:FufChangeList']
+    let g:fuf_com_list += [':exe ''"|    fq       --quickfix                               |        --''|:FufQuickfix']
+    let g:fuf_com_list += [':exe ''"|    fl       --full line in current buffer            |        --''|:FufLine']
+    let g:fuf_com_list += [':exe ''"|    fh       --help search                            |        --''|:FufHelp']
+    let g:fuf_com_list += [':exe ''"|    fe       --fuf data edit                          |        --''|:FufEditDataFile']
+    let g:fuf_com_list += [':exe ''"|    fr       --fuf renew cache                        |        --''|:FufRenewCache']
+    "}}}                                                                                                                       
+"                                                                                                                              
+" 本地vimrc的快捷列表                                                                                                          
+"                                                                                                                              
+let s:comm_dict={                                                                                                              
+            \1:'call fuf#givencmd#launch("", 0, "选择命令>", GetAllCommands())',                                               
+            \2:'call fuf#givencmd#launch("", 0, "选择命令>", g:fuf_com_list)',
+            \}
+fun! RLC(keynum)
+    " 调用命令
+    execute s:comm_dict[a:keynum]
+endf
+"
+" 片段的输入注记
+" fln 普通快捷键序列 fle 带功能键的序列 flc 函数调用RLC
+"
+let g:fuf_local_list=[]
+    """""""""""""超过本行双引号宽度的内容会被隐藏"""""""""""""""""""""""""""""""""""""""""
+    let g:fuf_local_list += [':exe ''"|   ,e         --快速编辑vimrc                            kuaisubianjivimrc --''|:norm ,e']
+    let g:fuf_local_list += [':exe ''"|   ,s         --快速应用vimrc                            kuaisuyingyongvimrc --''|:norm     ,s']
+    let g:fuf_local_list += [':exe ''"|   ,<回车>    --清除高亮搜索结果                         qingchugaoliangsousuojieguo clear high light search --''|:exe "norm ,\<CR>" ']
+    let g:fuf_local_list += [':exe ''"|   ,be   bufex--当前窗口选择缓冲区列表                   dangqianchuangkouxuanzehuanchongquliebiao select list buffer open  --''|:norm ,be ']
+    let g:fuf_local_list += [':exe ''"|   ,bs   bufex--上方开新窗口选择缓冲区                   shangfangkaixinchuangkouxuanzehuanchongqu up split select list buffer open  --''|:norm ,bs ']
+    let g:fuf_local_list += [':exe ''"|   ,bv   bufex--左侧开新窗口选择缓冲区                   zuocekaixinchuangkouxuanzehuanchongqu left vsplit select list buffer open  --''|:norm ,bv ']
+    let g:fuf_local_list += [':exe ''"|   alt+]      --在新标签页打开帮助                       new tab help --''|:exe "norm \<M-]>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+h     --光标跳到左侧窗口                         tdzcck jump left window --''|:exe "norm \<C-H>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+l     --光标跳到右侧窗口                         tdycck jump right window --''|:exe "norm \<C-L>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+k     --光标跳到上方窗口                         tdsfco jump up window --''|:exe "norm \<C-K>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+j     --光标跳到下方窗口                         tdxfck jump down window --''|:exe "norm \<C-J>" ']
+    let g:fuf_local_list += [':exe ''"|   shift+F1   --筛选所有自定义的命令                     sxzdyml command --''|:exe ":cal RLC(1)" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+F1    --筛选fuf插件命令                          sxcjml plugin command --''|:exe ":cal RLC(2)" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+shift+left    --减少当前窗口宽度                 jianshaodangqianchuangkoukuandu now window width  --''|:exe "norm \<C-S-Left>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+shift+right   --增加当前窗口宽度                 zengjiadangqianchuangkoukuandu now window width  --''|:exe "norm \<C-S-right>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+shift+up      --增加当前窗口高度                 zengjiadangqianchuangkou now window width  --''|:exe "norm \<C-S-up>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+shift+down    --减少当前窗口高度                 jianshaodangqianchuangkoukuandu now window width  --''|:exe "norm \<C-S-down>" ']
+    let g:fuf_local_list += [':exe ''"|   Alt+ctrl+left      --向左移动当前标签页               xiangzuoyidongdangqianbiaoqianye left tab move     --''|:exe "norm \<M-C-Left>" ']
+    let g:fuf_local_list += [':exe ''"|   Alt+ctrl+right     --向右移动当前标签页               xiangyouyidongdangqianbiaoqianye right tab move     --''|:exe "norm \<M-C-Right>" ']
+    let g:fuf_local_list += [':exe ''"|   Alt+l              --激活右侧标签页                   jihuoyoucebiaoqianye jump right tab   --''|:norm     gt ']
+    let g:fuf_local_list += [':exe ''"|   Alt+h              --激活左侧标签页                   jihuozuocebiaoqianye jump left tab   --''|:norm     gT ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+left          --切换到前一个缓冲区               qiehuandaoqianyigehuanchongqu pre buffer     --''|:exe "norm \<C-left>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+right         --切换到后一个缓冲区               qiehuandaohouyigehuanchongqu next buffer     --''|:exe "norm \<C-right>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+down          --取消vim菜单                      quxiaocaidan clear off hide menu     --''|:exe "norm \<c-down>" ']
+    let g:fuf_local_list += [':exe ''"|   ctrl+up            --显示vim菜单                      xianshicaidan show on menu     --''|:exe "norm \<c-up>" ']
+    let g:fuf_local_list += [':exe ''"|   gp        --保存符合当前搜索条件的内容                baocunfuhedangqiansousuotiaojiandeneirong search save file --''|:norm     gp ']
+    let g:fuf_local_list += [':exe ''"|   ,f   NerdT--开关nerdtree插件窗口                      kaiguannerdtreechajianchuangkou show windows hide on switch off --''|:norm     ,f ']
+    let g:fuf_local_list += [':exe ''"|   ,nf  NerdT--目录树显示当前编辑文件位置                mulushuxianshidangqianbianjiwenjianweizhi show nerdtree --''|:norm     ,nf']
+    let g:fuf_local_list += [':exe ''"|   F11  yankR--开关yankring插件窗口                      kaiguanyankringchajianchuangkou show windows on hide switch off --''|:YRShow']
+    let g:fuf_local_list += [':exe ''"|   ,nm    MRU--打开mru插件窗口                           dakaimruchajianchuangkou open show windows --''|:MRU']
+    let g:fuf_local_list += [':exe ''"|   F7    flake8检查                                      flakejianchapython --''|:exe "norm \<F7>"']
+
+
+nnoremap <silent> <F1> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_local_list)<CR>
+nnoremap <silent> <S-F1> :call fuf#givencmd#launch('', 0, '选择命令>', GetAllCommands())<CR>
+nnoremap <silent> <C-F1> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_com_list)<CR>
+vnoremap <silent> <C-F1> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_com_list)<CR>
+"}}}
+""}}}
+"
+" winManager 插件设置"{{{
+"
+"let g:persistentBehaviour=0
+"let g:winManagerWidth=40
+"let g:defaultExplorer=0
+"let g:NERDTree_title="[NERDTree]" 
+"let g:winManagerWindowLayout='NERDTree|BufExplorer'
+"function! NERDTree_Start()
+    "exec 'NERDTree'
+"endfunction
+"function! NERDTree_IsValid()
+    "return 1
+"endfunction
+"nmap wm :if IsWinManagerVisible() <BAR> WMToggle<CR> <BAR> else <BAR> 
+            "\ WMToggle<CR>:q<CR> endif <CR><CR>
+"nmap wf :if IsWinManagerVisible() <BAR> FirstExplorerWindow<CR> <BAR>  
+            "\ else <BAR> WMToggle<CR>:q<CR>FirstExplorerWindow<CR> endif <CR><CR>
+"nmap wb :if IsWinManagerVisible() <BAR> BottomExplorerWindow<CR> <BAR>  
+            "\ else <BAR> WMToggle<CR>:q<CR>BottomExplorerWindow<CR> endif <CR><CR>  
+"}}}
+
+"设置neocomplcache"{{{
+     let g:neocomplcache_enable_at_startup=1 "}}}
+
+" 
+" 设置 vim-fugitive"{{{
+"set statusline=%<%y\ %F\ %h%m%r%<\ %{Get_diff_mode()}\ 
+            "\%{fugitive#statusline()}\ %=%-14.(%l,%c%V%)\ %P
+    autocmd BufReadPost fugitive://* set bufhidden=delete 
+    map <F10> <Esc>:Gstatus<CR>
+    "}}}
+
+"设置Pydiction 自动补全功能，只需要反覆按 Ctrl-N 就行"{{{
+    "let g:pydiction_location = '~/vim-addons/Pydiction/complete-dict'
+    autocmd FileType python set complete+=k~/vim-addons/Pydiction/complete-dict
+""}}}
+
+"
+"设置pytest.vim"{{{
+" Execute the tests
+nmap <silent><Leader>tf <Esc>:Pytest file<CR>
+nmap <silent><Leader>tc <Esc>:Pytest class<CR>
+nmap <silent><F8> <Esc>:Pytest method -s<CR>
+" cycle through test errors
+nmap <silent><Leader>tn <Esc>:Pytest next<CR>
+nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
+nmap <silent><Leader>te <Esc>:Pytest error<CR> "}}}
+
+"
+"设置Gundo快捷键,g"{{{
+    map <leader>g :GundoToggle<cr>
+
+"
+" }}}1
+"
+
+"
+"设置sessionman快捷键 F5 "{{{
+    map <F5> :SessionList<cr>
+
+"
+" }}}1
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+"                     根据文件类型的不同采用的特定设置   {{{1                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 关于vimscript的设置"{{{
+let g:vimsyn_folding='af'
+"}}}
+"
+"保存代码文件前自动修改最后修改时间"{{{
+au BufWritePre   *.sh         call TimeStamp('#')
+au BufWritePre .vimrc,*.vim   call TimeStamp('"')
+au BufWritePre *.c,*.h        call TimeStamp('*')
+au BufWritePre *.cpp,*.hpp    call TimeStamp('//')
+au BufWritePre *.cxx,*.hxx    call TimeStamp('//')
+au BufWritePre *.java         call TimeStamp('//')
+au BufWritePre *.rb           call TimeStamp('#')
+au BufWritePre *.py           call TimeStamp('#')
+au BufWritePre Makefile       call TimeStamp('#')
+au BufWritePre *.php
+        \call TimeStamp('<?php //', '?>')
+"    au BufWritePre *.html,*htm
+"        \call TimeStamp('<!--', '-->')"}}}
+"
+" 设置各种语言的自动补全"{{{
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType java set omnifunc=javacomplete#Complet "}}}
+"
+" }}}1
+"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+"                  根据文件类型不同专用插件的设置部分    {{{1                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 设置python"{{{
+    autocmd FileType python setlocal et sta sw=4 sts=4
+    "代码折叠可以只以缩进为依据
+    autocmd FileType python setlocal foldmethod=indent
+    "默认展开所有代码
+    set foldlevel=99
+    " Python Unittest 的一些设置
+    " 可以让我们在编写 Python 代码及 unittest 测试时不需要离开 vim
+    " 键入 :make 或者点击 gvim 工具条上的 make 按钮就自动执行测试用例
+      autocmd FileType python compiler pyunit
+      autocmd FileType python setlocal makeprg=python\ ./alltests.py
+      autocmd BufNewFile,BufRead test*.py setlocal makeprg=python\ %
+
+    " 自动使用新文件模板
+      autocmd BufNewFile *.py 0r ~/.vim/skeleton/skeleton_bottom.py  
+      autocmd BufNewFile test*.py 0r ~/.vim/skeleton/test.py
+      autocmd BufNewFile alltests.py 0r ~/.vim/skeleton/alltests.py
+      autocmd BufNewFile *.py 0r ~/.vim/skeleton/skeleton_top.py  
+      
+    " 保存时自动删除行尾空格
+        function! RemoveTrailingWhitespace()
+            if &ft != "diff"
+                let b:curcol = col(".")
+                let b:curline = line(".")
+                silent! %s/\s\+$//
+                silent! %s/\(\s*\n\)\+\%$//
+                call cursor(b:curline, b:curcol)
+            endif
+        endfunction
+        autocmd BufWritePre *.py call RemoveTrailingWhitespace() 
+        
+    " 设置make的快捷键,m
+      map <C-F8> :make<cr>
+      
+    " 设置run的快捷键,r
+      map <leader>r :w<cr>:!python %<cr>
+      
+    " 设置配置开发窗口配置快捷键,s
+      map <silent> <leader><leader>s :source ~/sen.vim<cr>
+
+      "}}}
+      "}}}1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+"                     自定义的函数部分     {{{1                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"SwitchToBuf()实现它在所有标签页的窗口中查找指定的文件名，如果找到这样一个窗口，
+"就跳到此窗口中；否则，它新建一个标签页来打开vimrc文件
+"上面自动编辑.vimrc文件用到的函数 
+"
+function! SwitchToBuf(filename)"{{{
+    let bufwinnr = bufwinnr(a:filename)
+    if bufwinnr != -1
+    exec bufwinnr . "wincmd w"
+        return
+    else
+        " find in each tab
+        tabfirst
+        let tab = 1
+        while tab <= tabpagenr("$")
+            let bufwinnr = bufwinnr(a:filename)
+            if bufwinnr != -1
+                exec "normal " . tab . "gt"
+                exec bufwinnr . "wincmd w"
+                return
+            endif
+            tabnext
+            let tab = tab + 1
+        endwhile
+        " not exist, new tab
+        exec "tabnew " . a:filename
+    endif
+endfunction"}}}
+" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" 自动保存文件名
+"
+function! Filename_Save() "{{{
+    let pattern =  '^#\s*FileName\s*:'
+    let row = search(pattern, 'n')
+    if row  != 0 && row <10
+        let curstr = getline(row)
+        let col = match( curstr , 'FileName\s*:')
+        let spacestr = repeat(' ',col-1)
+        let buffilename = bufname("%")
+        let buffilename = strpart(buffilename,strridx(buffilename,"/")+1)
+        "echo strpart(bufname("%"),strridx(bufname("%"),"/"))
+        let newline = '#' . spacestr . 'FileName  :  ' . buffilename
+        call setline(row, newline)
+    endif
+endfunction "}}}
+" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"Last change用到的函数，返回时间，能够自动调整位置
+"
+function! TimeStamp(...)"{{{
+    let sbegin = ''
+    let send = ''
+    if a:0 >= 1
+        let sbegin = a:1.'\s*'
+        if a:1 == '*'
+            let sbegin = '\' . sbegin
+        endif
+    endif
+    if a:0 >= 2
+        let send = ' '.a:2
+    endif
+    let pattern =  'Last Change:.*'
+        \. send
+    let pattern = '^\s*' . sbegin . pattern . '\s*$'
+    "let now = strftime('%Y年%m月%d日 %H时%M分%S秒',
+    let now = strftime('%Y年%m月%d日',localtime())
+    let row = search(pattern, 'n')
+    if row  != 0
+        let curstr = getline(row)
+        let col = match( curstr , 'Last')
+        let leftcol = match(curstr,sbegin)
+        let spacestr = repeat(' ',col - len(a:1)-leftcol)
+        let leftspacestr = repeat(' ',leftcol)
+        let now = leftspacestr . a:1 . spacestr . 'Last Change:  '
+            \. now . send
+        call setline(row, now)
+    endif
+    call Filename_Save()
+endfunction"}}}
+"
+" 修改标签页的标题
+" set up tab labels with tab number, buffer name, number of windows
+"
+function! GuiTabLabel()"{{{
+  let label = ''
+  let bufnrlist = tabpagebuflist(v:lnum)
+  " Add '+' if one of the buffers in the tab page is modified
+  for bufnr in bufnrlist
+    if getbufvar(bufnr, "&modified")
+      let label = '+'
+      break
+    endif
+  endfor
+  " Append the tab number
+  let label .= v:lnum.': '
+  " Append the buffer name
+  let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
+  if name == ''
+    " give a name to no-name documents
+    if &buftype=='quickfix'
+      let name = '[Quickfix List]'
+    else
+      let name = '[No Name]'
+    endif
+  else
+    " get only the file name
+    let name = fnamemodify(name,":t")
+  endif
+  let label .= name
+  " Append the number of windows in the tab page
+  let wincount = tabpagewinnr(v:lnum, '$')
+  return label . '  [' . wincount . ']'
+endfunction"}}}
+"
+" 为python程序设置断点、取消断点
+"
+"{{{
+python << EOF
+import time
+import vim
+def SetBreakpoint():
+    nLine = int( vim.eval( 'line(".")'))
+    strLine = vim.current.line
+    i = 0
+    strWhite = ""
+    while strLine[i] == ' ' or strLine[i] == "\t":
+        i += 1
+        strWhite += strLine[i]
+    vim.current.buffer.append(
+       "%(space)spdb.set_trace() %(mark)s Breakpoint %(mark)s" %
+         {'space':strWhite, 'mark': '#' * 30}, nLine - 1)
+    for strLine in vim.current.buffer:
+        if strLine == "import pdb":
+            break
+        else:
+            vim.current.buffer.append( 'import pdb', 0)
+            vim.command( 'normal j1')
+            break
+            # vim.command( 'map <C-F7> :py SetBreakpoint()<cr>')
+
+def RemoveBreakpoints():
+    nCurrentLine = int( vim.eval( 'line(".")'))
+    nLines = []
+    nLine = 1
+    for strLine in vim.current.buffer:
+        if strLine == 'import pdb' or strLine.lstrip()[:15] == 'pdb.set_trace()':
+            nLines.append( nLine)
+        nLine += 1
+    nLines.reverse()
+    for nLine in nLines:
+        vim.command( 'normal %dG' % nLine)
+        vim.command( 'normal dd')
+        if nLine < nCurrentLine:
+            nCurrentLine -= 1
+    vim.command( 'normal %dG' % nCurrentLine)
+    # vim.command( 'map <C-F8> :py RemoveBreakpoints()<cr>')
+EOF
+"}}}
+" }}}1
+
+" Search for selected text, forwards or backwards."{{{
+" 搜索选中的文本
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+let @y='^i#include "A"j'
+nmap ;f :source ~/workspace/latex/code/chapter_5/vam_info.vim<cr>
+"}}}
+"
+" 让gvim支持Alt+n来切换标签页"{{{
+"
+function! Tabmap_Initialize()
+    for i in range(1, 9)
+        exe "map <A-".i."> ".i."gt"
+    endfor
+    exe "map <A-0> 10gt"
+endfunction
+autocmd VimEnter * call Tabmap_Initialize()
+"}}}
+"
+" ,=切换vim字体的大"{{{
+"
+function! Switch_Font()
+    if &guifont == "Courier 10 Pitch 20"
+        exec "set guifont=Courier\\ 10\\ Pitch\\ 12"
+    else
+        exec "set guifont=Courier\\ 10\\ Pitch\\ 20"
+    endif
+endfunction
+nmap <leader>= :call Switch_Font()<cr>
+"}}}
+"
+" }}}1
+"
+" 手动设置状态行"{{{
+"
+"set statusline=%F%h%m%r%w%y%<\ %{&ff}\ %{Get_diff_mode()}\ %{getcwd()}%=\ %l\,%L\ %c%V\ %P%([%{Tlist_Get_Tagname_By_Line()}]%)
+"set statusline=%F%h%m%r%w%y%<\ %{&ff}\ %{Get_diff_mode()}\ %{
+            "\getcwd()}%=\ %l\,%L\ %c%V\ %P
+set statusline=%{fugitive#statusline()}%F%h%m%r%w%y%<\ %{Get_diff_mode()}\ %=\ %l\,%L\ %c%V\ %P
+set laststatus=2
+fun! Get_diff_mode()
+    " 返回当前是否处于比对状态
+    if &diff
+        return "[Diff]"
+    else
+        return ""
+    endif
+endf"}}}
+"
+" F6来拷贝当前选择内容到+剪贴板"{{{
+"
+vnoremap <F6> "+y
+nnoremap <F6> vi'"+y"}}}
+"
+" ConqueTerm 设置"{{{
+"
+let g:ConqueTerm_FastMode = 0
+"let g:ConqueTerm_TERM = 'xterm'"}}}
+"
+" 用diff模式对比当前文件在打开后进行的所有修改"{{{
+"
+command! DiffOrig let s:old_ft=&ft | vert new | 
+            \set bt=nofile |execute "set ft=".s:old_ft | r # 
+            \| 0d_ | diffthis | wincmd p | diffthis
+"}}}
+
+"
+" 设置比较模式垂直窗口、填充空行、折叠上下2行"{{{
+" 设置强制刷新快捷键 ,du
+"
+set diffopt=filler,vertical,context:2
+nnoremap <silent> <leader>du :diffupdate<cr>"}}}
+
+"
+" 设置neocomplcache "{{{
+let g:neocomplcache_enable_at_startup=1  "}}}
+
+"设置vimrepress"{{{
+let VIMPRESS = [{'username':'bailiangcn',
+                \'password':'bl1973',
+                \'blog_url':'http://www.cnblogs.com/bailiang'
+                \}]"}}}
+                 
