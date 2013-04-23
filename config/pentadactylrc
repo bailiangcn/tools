@@ -133,7 +133,8 @@ autocmd DOMLoad 'cang.baidu.com/do/add?' :normal! 4gi
 
 
 silent qmark b    http://www.baidu.com/ 
-silent qmark B    http://wap.bing.com/
+"silent qmark B    http://wap.bing.com/
+"silent qmark B    http://bing.com.cn/
 silent qmark o    http://finance.sina.com.cn/stock/
 silent qmark c    http://cang.baidu.com/#%E5%85%A8%E9%83%A8%E5%88%86%E7%B1%BB/1/0/0/%E7%99%BE%E5%BA%A6/0.34393142761727624/0/0 
 silent qmark f    http://fayaa.com/code/new/ 

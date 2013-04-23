@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2013年04月18日
+" Last Change:  2013年04月23日
 
 " 防止ubuntu 10.04下面看不见中文菜单  "{{{
 
@@ -29,14 +29,17 @@ endif
 "
 let addon_list=[]
 set runtimepath+=~/vim-addons/vim-addon-manager
-set runtimepath+=~/vim-addons/mysnip
+"set runtimepath+=~/vim-addons/mysnip
 let addon_list += ["Colour_Sampler_Pack"]
 let addon_list += [ "ScrollColors" ]
 let addon_list += [ "FuzzyFinder"]
 let addon_list += [ "The_NERD_Commenter"]
 let addon_list += [ "surround"]
 "let addon_list += [ "snipmate"]
+"let addon_list += [ "snipMate"]
 "let addon_list += [ "snipmate-snippets"]
+let addon_list += [ "UltiSnips"]
+let addon_list += [ "Markdown"]
 let addon_list += [ "fugitive"] 
 let addon_list += [ "EasyMotion"]
 let addon_list += [ "git-vim"]
@@ -256,6 +259,16 @@ if count(addon_list,'vimim')
     let g:vimim_cloud='sogou,qq'  
 endif
 "}}}
+"
+"markdown配置
+"au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=mkd
+"rkdown to HTML
+nmap md :!/usr/bin/markdown_py % > %.html && firefox %.html & <CR><CR>
+nmap mr :w <cr><cr>:!/usr/bin/markdown_py % > %.html && xdotool search --name Pentadactyl key r<CR><CR>
+nmap me :!/usr/bin/markdown_py % > %.html && gvim %.html & <CR><CR>
+
+
+
 "
 " showmarks 插件设置{{{
 "
