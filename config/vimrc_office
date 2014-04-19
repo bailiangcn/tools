@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2013年04月23日
+" Last Change:  2014年04月11日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -20,6 +20,7 @@ let addon_list += [ "FuzzyFinder"]
 let addon_list += [ "The_NERD_Commenter"]
 let addon_list += [ "surround"]
 let addon_list += [ "Markdown"]
+let addon_list += [ "VimRepress"]
 let addon_list += [ "fugitive"] 
 let addon_list += [ "EasyMotion"]
 let addon_list += [ "git-vim"]
@@ -27,13 +28,14 @@ let addon_list += [ "ShowMarks"]
 "let addon_list += [ "Marks_Browser"]
 let addon_list += [ "YankRing"]
 let addon_list += [ "taglist"]
-"let addon_list += [ "TaskList"]
+let addon_list += [ "TaskList"]
 let addon_list += [ "sessionman"]
-let addon_list += [ "L9"]
+"let addon_list += [ "L9"]
 let addon_list += [ "bash-support"]
 "let addon_list += [ "Tagbar"]
-let addon_list += [ "VimIM"]
+"let addon_list += [ "VimIM"]
 let addon_list += [ "UltiSnips"]
+let addon_list += [ "fcitx"]
 
 " 和bash相关
 let addon_list += [ "bash-support"]
@@ -204,6 +206,12 @@ cnoreabbrev me mksession! ~/.vim/etool.vim
 cnoreabbrev se source ~/.vim/etool.vim
 
 "
+" 设置sudo 保存文件
+" :w !sudo tee %
+"
+command! -nargs=? Sudow :w !sudo tee %
+
+"
 "将当前查找的所有匹配行导入到另一窗口
 "
 nnoremap <silent>gp :let @p=@_<CR>:g/<C-R>//y P<CR>:new<CR>pdkyG
@@ -245,7 +253,6 @@ endif
 "markdown配置
 "
 nmap md :!/usr/bin/markdown_py % > %.html && firefox %.html & <CR><CR>
-
 nmap mr :w<cr>:!/usr/bin/markdown_py % > %.html && xdotool search --name Pentadactyl key r<CR><CR>
 nmap me :!/usr/bin/markdown_py % > %.html && gvim %.html & <CR><CR>
 
@@ -254,17 +261,17 @@ nmap me :!/usr/bin/markdown_py % > %.html && gvim %.html & <CR><CR>
 " UltiSnips配置"{{{
 "
     "设置插件的本地目录
-    "let g:UltiSnipsSnippetsDir="~/vim-addons/UltiSnips/UltiSnips/"
+    let g:UltiSnipsSnippetsDir="~/vim-addons/UltiSnips/UltiSnips/"
     "设置编辑插件片段文本采用上下分割的方式
     let g:UltiSnipsEditSplit ="horizontal"
     "增加本地片段路径
-    "let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+    let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 "}}}
 
 "
 " showmarks 插件设置{{{
 "
-if count(addon_list,'ShowMarks')
+if count(addon_list,{'name':'ShowMarks'})
     let showmarks_enable = 1 " ShowMarks伴随Vim一同启动
     "设置a-zA-Z为显示标记
     let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
@@ -286,7 +293,7 @@ endif"}}}
 "
 " yankring 插件设置"{{{
 "
-if count(addon_list,'YankRing')
+if count(addon_list,{'name':'YankRing'})
     nnoremap <silent> <F11> :YRShow<CR> “ 设置正常模式快捷键F11显示yankring窗口
     inoremap <silent> <F11> <ESC>:YRShow<cr> “ 设置插入模式快捷键F11显示yankring窗口
 endif
@@ -606,6 +613,10 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "                                                                              "
 "                  根据文件类型不同专用插件的设置部分    {{{1                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 设置basic"{{{
+    autocmd BufRead *.cls   set filetype=vb
+    autocmd FileType vb setlocal foldmethod=indent
+""}}}
 " 设置python"{{{
     autocmd FileType python setlocal et sta sw=4 sts=4
     "代码折叠可以只以缩进为依据
@@ -902,8 +913,13 @@ nnoremap <silent> <leader>du :diffupdate<cr>"}}}
 let g:neocomplcache_enable_at_startup=1  "}}}
 
 "设置vimrepress"{{{
-let VIMPRESS = [{'username':'bailiangcn',
-                \'password':'bl1973',
-                \'blog_url':'http://www.cnblogs.com/bailiang'
-                \}]"}}}
+"let VIMPRESS = [{'username':'bailiangcn',
+                "\'password':'bl1973',
+                "\'blog_url':'http://my.oschina.net/action/xmlrpc'
+                "\}]"}}}
                  
+"let ub_blog = {'login_name':'bailiangcn@gmail.com',
+            "\'password':'bl1973',
+            "\'url':'http://my.oschina.net/action/xmlrpc',
+            "\'db':'~/.vim/UltraBlog.db'
+            "\}

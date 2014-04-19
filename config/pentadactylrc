@@ -1,7 +1,7 @@
 " vim: set ft=pentadactyl:
 "1.0b5.1 (created: 2011/03/9 20:42:05)
 
-loadplugins '\.(js|penta)$'
+"loadplugins '\.(js|penta)$'
 
 "ts 打开英文到中文翻译网页
 command! -nargs=* ts open http://translate.google.com/#en%7Czh-CN%7C <args>
@@ -22,6 +22,14 @@ map -modes=n,v -silent gs :exe<Space>":gs<Space>"+content.getSelection()<Return>
 map -modes=n,v j -builtin 5j
 map -modes=n,v k -builtin 5k
 
+
+"Use Full Zoom,
+
+map -b zi ZI
+map -b zo ZO
+
+
+
 "S 自动重新调入配置文件
 map -modes=n,v S :so<Space>"~/.pentadactylrc"<Return>
 
@@ -38,8 +46,8 @@ map -modes=n,v <C-Up> :se<Space>go=mnsTB<Return>
 map -modes=n,v <C-Down> :se<Space>go=rbsN<Return>：
 
 "b1 b2 设置快捷键自动打开网址
-map -modes=n,v -silent b1 :tabopen<Space>http://www.xs111.com/yishixiejun/<Space><Return>
-map -modes=n,v -silent b2 :tabopen<Space>http://www.xs111.com/doupocangqiong/<Space><Return>
+"map -modes=n,v -silent b1 :tabopen<Space>http://www.xs111.com/yishixiejun/<Space><Return>
+"map -modes=n,v -silent b2 :tabopen<Space>http://www.xs111.com/doupocangqiong/<Space><Return>
 
 "在标签上显示数字，方便使用b+<num>来选择特定标签
 :set guioptions=rbsNm

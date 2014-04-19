@@ -131,3 +131,15 @@ alias gvim="gvim -f 2>/dev/null"
 
 source ~/.local/bin/bashmarks.sh
 export PATH="/home/bl/bin:$PATH"
+
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/ELC
+source /usr/local/bin/virtualenvwrapper.sh
+
+export LD_LIBRARY_PATH="/home/bl/pgmodeler-0.5.0"
+
+alias cnpm="npm --registry=http://r.cnpmjs.org \
+--cache=$HOME/.npm/.cache/cnpm \
+--disturl=http://cnpmjs.org/dist \
+--userconfig=$HOME/.cnpmrc"
