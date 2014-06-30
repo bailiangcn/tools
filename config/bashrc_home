@@ -143,3 +143,7 @@ alias cnpm="npm --registry=http://r.cnpmjs.org \
 --cache=$HOME/.npm/.cache/cnpm \
 --disturl=http://cnpmjs.org/dist \
 --userconfig=$HOME/.cnpmrc"
+
+alias gowork='workon Love; cd ~/clirepo/lovedq/'
+alias god='workon Love; cd ~/clirepo/damonwx/'
+alias gotdd='workon TDD; cd ~/tddbook/'

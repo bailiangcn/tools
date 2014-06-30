@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2014年03月24日
+" Last Change:  2014年04月20日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -616,6 +616,9 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "                  根据文件类型不同专用插件的设置部分    {{{1                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" 设置markdown"{{{
+    autocmd BufRead /tmp/pentadactyl.*.txt   set filetype=markdown
+""}}}
 " 设置basic"{{{
     autocmd BufRead *.cls   set filetype=vb
     autocmd FileType vb setlocal foldmethod=indent

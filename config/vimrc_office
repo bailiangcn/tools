@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2014年04月11日
+" Last Change:  2014年05月30日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -224,7 +224,7 @@ nnoremap <silent>gp :let @p=@_<CR>:g/<C-R>//y P<CR>:new<CR>pdkyG
 "
 "NERD Tree 配置"{{{
 "
-if count(addon_list,'The_NERD_tree')
+if count(addon_list,{'name':'The_NERD_tree'})
     let NERDChristmasTree=1 " 文件目录使用树状结构显示
     let NERDTreeAutoCenter=1 " 当光标移动超过一定距离时自动将焦点调整到屏中心
     let NERDTreeBookmarksFile=$HOME.'/NerdBookmarks.txt' " 指定书签文件位置
@@ -266,6 +266,10 @@ nmap me :!/usr/bin/markdown_py % > %.html && gvim %.html & <CR><CR>
     let g:UltiSnipsEditSplit ="horizontal"
     "增加本地片段路径
     let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+    " Set ultisnips triggers
+     "let g:UltiSnipsExpandTrigger="<tab>"                                            
+     "let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+     "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"     
 "}}}
 
 "
@@ -287,7 +291,7 @@ endif
 "
 " marksbrowser 插件设置"{{{
 "
-if count(addon_list,'Marks_Browser')
+if count(addon_list,{'name':'Marks_Browser'})
     nmap <silent> <leader>mk :MarksBrowser<cr> "定义,mk激活marksbrowser插件
 endif"}}}
 "
@@ -301,11 +305,11 @@ endif
 "
 " supertab 插件设置"{{{
 "
-if count(addon_list,'SuperTab_continued.')
-    let g:SuperTabDefaultCompletionType="context"
-    let g:snips_author1='白亮'
-    let g:snips_trigger_key='<f2>'
-endif
+"if count(addon_list,'SuperTab_continued.')
+    "let g:SuperTabDefaultCompletionType="context"
+    "let g:snips_author1='白亮'
+    "let g:snips_trigger_key='<f2>'
+"endif
 "}}}
 "
 " BufExplorer 插件设置"{{{
@@ -366,9 +370,9 @@ endif
 " FuzzyFinder 配置"{{{
 "
 "let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', ]
-let g:fuf_modesDisable = []
-let g:fuf_mrufile_maxItem = 400
-let g:fuf_mrucmd_maxItem = 400
+let g:fuf_modesDisable = [ 'mrucmd' ]
+let g:fuf_mrufile_maxItem = 100
+let g:fuf_mrucmd_maxItem = 100
 let g:fuf_reuseWindow = 1 "每次都重新打开窗口 
 let g:fuf_keyNextPattern = '<C-z>'
 " Fuf {{{
@@ -613,6 +617,10 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "                                                                              "
 "                  根据文件类型不同专用插件的设置部分    {{{1                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 设置markdown"{{{
+    autocmd BufRead /tmp/pentadactyl.*.txt   set filetype=markdown
+""}}}
 " 设置basic"{{{
     autocmd BufRead *.cls   set filetype=vb
     autocmd FileType vb setlocal foldmethod=indent

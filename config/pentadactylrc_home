@@ -145,7 +145,7 @@ silent qmark n    http://news.sina.com.cn/
 silent qmark p    http://proxyie.cn/ 
 silent qmark s    https://github.com/bailiangcn/github-example/network 
 silent qmark u    http://forum.ubuntu.org.cn/ 
-silent qmark G    http://progit.org/book/zh/ 
+silent qmark G    http://www.gfsoso.com/
 silent qmark M    http://music.baidu.com/
 silent qmark S    https://github.com/bailiangcn/tools/networ
 silent qmark 0    http://live.9666.cn/166/
