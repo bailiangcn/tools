@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2014年04月20日
+" Last Change:  2014年07月08日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -254,6 +254,8 @@ nmap md :!/usr/local/bin/markdown_py % > %.html && firefox %.html & <CR><CR>
 "nmap mr :w <cr><cr>:!/usr/local/bin/markdown_py % > %.html && xdotool search --name Pentadactyl key r<CR><CR>
 nmap mr :w<cr>:!/usr/local/bin/markdown_py % > %.html && wmctrl -a "Pentadactyl" && xdotool key --delay 500  r && wmctrl -a "Gvim"<CR><cr>
 nmap me :!/usr/local/bin/markdown_py % > %.html && gvim %.html & <CR><CR>
+
+autocmd BufNewFile *.md 0r ~/.vim/skeleton/meta.md
 
 "
 " UltiSnips配置"{{{

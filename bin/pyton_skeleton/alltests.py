@@ -1,4 +1,3 @@
-
 import unittest
 import sys
 import os
@@ -28,5 +27,3 @@ def suite():
 
 if __name__ == '__main__':
     unittest.main(defaultTest='suite')
-
-
