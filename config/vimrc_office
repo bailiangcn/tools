@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年10月03日
+" Last Change:  2015年10月09日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -35,6 +35,7 @@ let addon_list += [ "bash-support"]
 "let addon_list += [ "Tagbar"]
 "let addon_list += [ "VimIM"]
 let addon_list += [ "UltiSnips"]
+let addon_list += [ "vim-snippets"]
 let addon_list += [ "fcitx"]
 
 " 和bash相关
