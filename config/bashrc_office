@@ -156,3 +156,4 @@ alias cnpm="npm --registry=http://r.cnpmjs.org \
 alias gowork='workon lovedq; cd ~/clirepo/lovedq/'
 alias god='workon lovedq; cd ~/clirepo/damonwx/'
 alias gotdd='workon TDD; cd ~/tddbook/'
+alias gooffice='workon lovedq; cd ~/OfficeTools/'

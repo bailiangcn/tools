@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2014年07月08日
+" Last Change:  2015年10月08日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -33,6 +33,7 @@ let addon_list += [ "bash-support"]
 "let addon_list += [ "Tagbar"]
 "let addon_list += [ "VimIM"]
 let addon_list += [ "UltiSnips"]
+let addon_list += [ "vim-snippets"]
 let addon_list += [ "fcitx"]
 
 " 和bash相关
@@ -81,7 +82,7 @@ map <silent> <leader>l :call SwitchToBuf("~/Nutstore/err/3b/error3b.tex")<cr>
 "
 " 设置中文编码  {{{2 
 "
-set fileencodings=ucs-bom,utf-8,cp936
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set fileencoding=utf-8
 set encoding=utf-8
 set ambiwidth=double
@@ -261,7 +262,7 @@ autocmd BufNewFile *.md 0r ~/.vim/skeleton/meta.md
 " UltiSnips配置"{{{
 "
     "设置插件的本地目录
-    "let g:UltiSnipsSnippetsDir="~/vim-addons/UltiSnips/UltiSnips/"
+    let g:UltiSnipsSnippetsDir="~/vim-addons/UltiSnips/"
     "设置编辑插件片段文本采用上下分割的方式
     let g:UltiSnipsEditSplit ="horizontal"
     "增加本地片段路径
@@ -280,8 +281,8 @@ if count(addon_list,{'name':'ShowMarks'})
     "设置a-zA-Z为显示标记
     let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
     let showmarks_ignore_type = "hqm" " 忽略help, quickfix和不可编辑缓冲区的标记
-    "let showmarks_hlline_lower = 1 "高亮显示小写标记行
-    "let showmarks_hlline_upper = 1 "高亮显示大写标记行
+    let showmarks_hlline_lower = 1 "高亮显示小写标记行
+    let showmarks_hlline_upper = 1 "高亮显示大写标记行
 
     " 设置标记行的颜色
     highlight ShowMarksHLl  guibg=darkgreen

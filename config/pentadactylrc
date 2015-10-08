@@ -161,3 +161,6 @@ silent qmark 0    http://live.9666.cn/166/
 silent qmark 1    http://learnyouahaskell.com/chapters
 silent qmark 2    http://learnyouahaskell-zh-tw.csie.org/chapters.html
 
+
+" 禁止在扇背单词页面使用 d
+set passkeys=www.shanbay.com:dp,.12
