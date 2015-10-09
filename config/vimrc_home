@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年10月08日
+" Last Change:  2015年10月09日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -625,7 +625,13 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 " 设置basic"{{{
     autocmd BufRead *.cls   set filetype=vb
     autocmd FileType vb setlocal foldmethod=indent
+    
+" 设置java"{{{
+"
+    " 设置run的快捷键,r
+      autocmd BufRead *.java map <leader>r :Java<cr>
 ""}}}
+
 " 设置python"{{{
     autocmd FileType python setlocal et sta sw=4 sts=4
     "代码折叠可以只以缩进为依据
@@ -661,7 +667,7 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
       map <C-F8> :make<cr>
       
     " 设置run的快捷键,r
-      map <leader>r :w<cr>:!python %<cr>
+      autocmd BufRead *.py map <leader>r :w<cr>:!python %<cr>
       
     " 设置配置开发窗口配置快捷键,s
       map <silent> <leader><leader>s :source ~/sen.vim<cr>
