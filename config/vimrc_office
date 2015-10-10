@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年10月09日
+" Last Change:  2015年10月10日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -30,7 +30,7 @@ let addon_list += [ "YankRing"]
 let addon_list += [ "taglist"]
 let addon_list += [ "TaskList"]
 "let addon_list += [ "sessionman"]
-"let addon_list += [ "L9"]
+let addon_list += [ "L9"]
 let addon_list += [ "bash-support"]
 "let addon_list += [ "Tagbar"]
 "let addon_list += [ "VimIM"]
@@ -225,7 +225,7 @@ nnoremap <silent>gp :let @p=@_<CR>:g/<C-R>//y P<CR>:new<CR>pdkyG
 "
 "NERD Tree 配置"{{{
 "
-if count(addon_list,{'name':'The_NERD_tree'})
+if count(addon_list,'The_NERD_tree')
     let NERDChristmasTree=1 " 文件目录使用树状结构显示
     let NERDTreeAutoCenter=1 " 当光标移动超过一定距离时自动将焦点调整到屏中心
     let NERDTreeBookmarksFile=$HOME.'/NerdBookmarks.txt' " 指定书签文件位置
@@ -268,18 +268,18 @@ nmap me :!/usr/bin/markdown_py % > %.html && gvim %.html & <CR><CR>
     "增加本地片段路径
     let g:UltiSnipsSnippetDirectories=["UltiSnips"]
     " Set ultisnips triggers
-     "let g:UltiSnipsExpandTrigger="<tab>"                                            
-     "let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
-     "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"     
+     let g:UltiSnipsExpandTrigger="<tab>"                                            
+     let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"     
 "}}}
 
 "
 " showmarks 插件设置{{{
 "
-if count(addon_list,{'name':'ShowMarks'})
+if count(addon_list,'ShowMarks')
     let showmarks_enable = 1 " ShowMarks伴随Vim一同启动
     "设置a-zA-Z为显示标记
-    let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+    "let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
     let showmarks_ignore_type = "hqm" " 忽略help, quickfix和不可编辑缓冲区的标记
     let showmarks_hlline_lower = 1 "高亮显示小写标记行
     let showmarks_hlline_upper = 1 "高亮显示大写标记行
@@ -298,7 +298,7 @@ endif"}}}
 "
 " yankring 插件设置"{{{
 "
-if count(addon_list,{'name':'YankRing'})
+if count(addon_list,'YankRing')
     nnoremap <silent> <F11> :YRShow<CR> “ 设置正常模式快捷键F11显示yankring窗口
     inoremap <silent> <F11> <ESC>:YRShow<cr> “ 设置插入模式快捷键F11显示yankring窗口
 endif
@@ -306,11 +306,11 @@ endif
 "
 " supertab 插件设置"{{{
 "
-"if count(addon_list,'SuperTab_continued.')
-    "let g:SuperTabDefaultCompletionType="context"
-    "let g:snips_author1='白亮'
-    "let g:snips_trigger_key='<f2>'
-"endif
+if count(addon_list,'SuperTab_continued.')
+    let g:SuperTabDefaultCompletionType="context"
+    let g:snips_author1='白亮'
+    let g:snips_trigger_key='<f2>'
+endif
 "}}}
 "
 " BufExplorer 插件设置"{{{
@@ -625,7 +625,13 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 " 设置basic"{{{
     autocmd BufRead *.cls   set filetype=vb
     autocmd FileType vb setlocal foldmethod=indent
+    
+" 设置java"{{{
+"
+    " 设置run的快捷键,r
+      autocmd BufRead *.java map <leader>r :w<cr>:Java<cr>
 ""}}}
+
 " 设置python"{{{
     autocmd FileType python setlocal et sta sw=4 sts=4
     "代码折叠可以只以缩进为依据
@@ -661,7 +667,7 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
       map <C-F8> :make<cr>
       
     " 设置run的快捷键,r
-      map <leader>r :w<cr>:!python %<cr>
+      autocmd BufRead *.py map <leader>r :w<cr>:!python %<cr>
       
     " 设置配置开发窗口配置快捷键,s
       map <silent> <leader><leader>s :source ~/sen.vim<cr>

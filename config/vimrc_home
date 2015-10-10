@@ -629,7 +629,7 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 " 设置java"{{{
 "
     " 设置run的快捷键,r
-      autocmd BufRead *.java map <leader>r :Java<cr>
+      autocmd BufRead *.java map <leader>r :w<cr>:Java<cr>
 ""}}}
 
 " 设置python"{{{
