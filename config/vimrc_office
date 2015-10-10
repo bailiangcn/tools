@@ -279,7 +279,7 @@ nmap me :!/usr/bin/markdown_py % > %.html && gvim %.html & <CR><CR>
 if count(addon_list,'ShowMarks')
     let showmarks_enable = 1 " ShowMarks伴随Vim一同启动
     "设置a-zA-Z为显示标记
-    "let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+    let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
     let showmarks_ignore_type = "hqm" " 忽略help, quickfix和不可编辑缓冲区的标记
     let showmarks_hlline_lower = 1 "高亮显示小写标记行
     let showmarks_hlline_upper = 1 "高亮显示大写标记行
@@ -630,6 +630,7 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "
     " 设置run的快捷键,r
       autocmd BufRead *.java map <leader>r :w<cr>:Java<cr>
+      autocmd BufRead *.java map <leader>F :%JavaFormat<cr>
 ""}}}
 
 " 设置python"{{{
