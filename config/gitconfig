@@ -1,18 +1,22 @@
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset @%C(yellow)%d%Creset %cn %Cblue(%cr)%Creset %n Date: %ci %n %n Subject: %Cgreen%s%Creset %n%n%b'
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	diffall = git-diffall
 [user]
 	name = bailiang
 	email = bailiangcn@gmail.com
 [core]
 	editor = gvim
+[diff]
+	tool = meld
 [merge]
-	tool = vimdiff
+	tool = meld
 [color]
 	status = auto
 	branch = auto
     ui=auto
 	diff = auto
 	interactive = auto
-[alias]
-	st = status
-	ci = commit
-	co = checkout
-	br = branch
