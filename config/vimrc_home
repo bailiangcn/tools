@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年10月09日
+" Last Change:  2015年10月25日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -27,11 +27,9 @@ let addon_list += [ "ShowMarks"]
 let addon_list += [ "YankRing"]
 let addon_list += [ "taglist"]
 let addon_list += [ "TaskList"]
-let addon_list += [ "sessionman"]
 let addon_list += [ "L9"]
 let addon_list += [ "bash-support"]
 "let addon_list += [ "Tagbar"]
-"let addon_list += [ "VimIM"]
 let addon_list += [ "UltiSnips"]
 let addon_list += [ "vim-snippets"]
 let addon_list += [ "fcitx"]
@@ -97,6 +95,7 @@ if has("gui_running")
     set guioptions-=T  "关闭工具栏
     set guioptions-=m  "关闭菜单
     colorscheme candycode "载入色彩方案 必须安装 Color_Sampler_Pack插件
+    "colorscheme eclipse "载入色彩方案 必须安装 Color_Sampler_Pack插件
     set cursorline    "反显光标当前行颜色
 else
     " 在终端环境里
@@ -201,8 +200,6 @@ map <silent> <C-Up> :if &guioptions !~#'T'<Bar>
 "
 " 设置th为新开页面帮助
 cnoreabbrev th tab help
-cnoreabbrev me mksession! ~/.vim/etool.vim
-cnoreabbrev se source ~/.vim/etool.vim
 
 "
 " 设置sudo 保存文件
@@ -223,7 +220,7 @@ nnoremap <silent>gp :let @p=@_<CR>:g/<C-R>//y P<CR>:new<CR>pdkyG
 "
 "NERD Tree 配置"{{{
 "
-if count(addon_list,{'name':'The_NERD_tree'})
+if count(addon_list,'The_NERD_tree')
     let NERDChristmasTree=1 " 文件目录使用树状结构显示
     let NERDTreeAutoCenter=1 " 当光标移动超过一定距离时自动将焦点调整到屏中心
     let NERDTreeBookmarksFile=$HOME.'/NerdBookmarks.txt' " 指定书签文件位置
@@ -236,16 +233,6 @@ if count(addon_list,{'name':'The_NERD_tree'})
     let NERDTreeWinSize=60 "NERD 窗口宽度
     nnoremap <silent> <leader>f :NERDTreeToggle<CR> | "设置NERDTree的调用快捷键<leader>f
     nnoremap <silent> <leader>nf :NERDTreeFind<CR>  | "设置NERDTree显示当前文件位置<leader>nf
-endif
-"}}}
-"
-"vimim配制"{{{
-"
-if count(addon_list,{'name':'vimim'})
-"    let g:vimim_onekey_hit_and_run = 1 
-    let g:vimim_chinese_input_mode='static' 
-    "let g:vimim_cloud='baidu,sogou,qq,google'  
-    let g:vimim_cloud='sogou,qq'  
 endif
 "}}}
 "
@@ -262,11 +249,11 @@ autocmd BufNewFile *.md 0r ~/.vim/skeleton/meta.md
 " UltiSnips配置"{{{
 "
     "设置插件的本地目录
-    let g:UltiSnipsSnippetsDir="~/vim-addons/UltiSnips/"
+    let g:UltiSnipsSnippetsDir="~/vim-addons/UltiSnips/UltiSnips/"
     "设置编辑插件片段文本采用上下分割的方式
     let g:UltiSnipsEditSplit ="horizontal"
     "增加本地片段路径
-    "let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+    let g:UltiSnipsSnippetDirectories=["UltiSnips"]
     " Set ultisnips triggers
      let g:UltiSnipsExpandTrigger="<tab>"                                            
      let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
@@ -276,7 +263,7 @@ autocmd BufNewFile *.md 0r ~/.vim/skeleton/meta.md
 "
 " showmarks 插件设置{{{
 "
-if count(addon_list,{'name':'ShowMarks'})
+if count(addon_list,'ShowMarks')
     let showmarks_enable = 1 " ShowMarks伴随Vim一同启动
     "设置a-zA-Z为显示标记
     let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
@@ -290,15 +277,10 @@ if count(addon_list,{'name':'ShowMarks'})
 endif
 "}}}
 "
-" marksbrowser 插件设置"{{{
-"
-if count(addon_list,{'name':'Marks_Browser'})
-    nmap <silent> <leader>mk :MarksBrowser<cr> "定义,mk激活marksbrowser插件
-endif"}}}
 "
 " yankring 插件设置"{{{
 "
-if count(addon_list,{'name':'YankRing'})
+if count(addon_list,'YankRing')
     nnoremap <silent> <F11> :YRShow<CR> “ 设置正常模式快捷键F11显示yankring窗口
     inoremap <silent> <F11> <ESC>:YRShow<cr> “ 设置插入模式快捷键F11显示yankring窗口
 endif
@@ -306,11 +288,11 @@ endif
 "
 " supertab 插件设置"{{{
 "
-"if count(addon_list,'SuperTab_continued.')
+if count(addon_list,'SuperTab_continued.')
     let g:SuperTabDefaultCompletionType="context"
     let g:snips_author1='白亮'
     let g:snips_trigger_key='<f2>'
-"endif
+endif
 "}}}
 "
 " BufExplorer 插件设置"{{{
@@ -573,10 +555,6 @@ nmap <silent><Leader>te <Esc>:Pytest error<CR> "}}}
 "
 
 "
-"设置sessionman快捷键 F5 "{{{
-    map <F5> :SessionList<cr>
-
-"
 " }}}1
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -630,6 +608,8 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "
     " 设置run的快捷键,r
       autocmd BufRead *.java map <leader>r :w<cr>:Java<cr>
+    " 设置格式化java代码的快捷键,F
+      autocmd BufRead *.java map <leader>F :%JavaFormat<cr>
 ""}}}
 
 " 设置python"{{{
@@ -667,6 +647,7 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
       map <C-F8> :make<cr>
       
     " 设置run的快捷键,r
+      "autocmd BufRead *.py map <leader>r :w<cr>:!sudo python %<cr>
       autocmd BufRead *.py map <leader>r :w<cr>:!python %<cr>
       
     " 设置配置开发窗口配置快捷键,s

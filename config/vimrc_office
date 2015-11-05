@@ -630,6 +630,7 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "
     " 设置run的快捷键,r
       autocmd BufRead *.java map <leader>r :w<cr>:Java<cr>
+    " 设置格式化java代码的快捷键,F
       autocmd BufRead *.java map <leader>F :%JavaFormat<cr>
 ""}}}
 
