@@ -12,8 +12,8 @@
 " 设置vim-addon-manager插件  {{{1
 "
 let addon_list=[]
-set runtimepath+=~/vim-addons/vim-addon-manager
-set runtimepath+=~/vim-addons/mysnip
+set runtimepath+=~/.vim/vim-addons/vim-addon-manager
+set runtimepath+=~/.vim/vim-addons/mysnip
 let addon_list += ["Colour_Sampler_Pack"]
 let addon_list += [ "ScrollColors" ]
 let addon_list += [ "FuzzyFinder"]
