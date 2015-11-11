@@ -28,11 +28,11 @@ let addon_list += [ "YankRing"]
 let addon_list += [ "taglist"]
 let addon_list += [ "TaskList"]
 let addon_list += [ "L9"]
-let addon_list += [ "bash-support"]
 "let addon_list += [ "Tagbar"]
 let addon_list += [ "UltiSnips"]
 let addon_list += [ "vim-snippets"]
 let addon_list += [ "fcitx"]
+let addon_list += [ "Gundo"]
 
 " 和bash相关
 let addon_list += [ "bash-support"]
@@ -40,7 +40,6 @@ let addon_list += [ "bash-support"]
 " 和python相关
 let addon_list += [ "vim-flake8"]
 let addon_list += [ "pytest"]
-let addon_list += [ "Gundo"]
 let addon_list += [ "python_pydoc"]
 let addon_list += [ "indentpython%3461"]
 "需要安装,但是不需要激活,使用他的字典支持补全
