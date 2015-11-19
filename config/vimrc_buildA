@@ -427,6 +427,11 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "
 " }}}1
 "
+"--------启用代码折叠，用空格键来开关折叠   
+set foldenable           " 打开代码折叠  
+autocmd FileType java set foldmethod=syntax        " 选择代码折叠类型  
+set foldlevel=100            " 禁止自动折叠  
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>   
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
