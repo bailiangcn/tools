@@ -9,6 +9,7 @@ y=`xwininfo -id $window | grep "Absolute upper-left Y" | awk '{print $4}'`
 width=`xwininfo -id $window | grep "Width:" | awk '{print $2}'`
 height=`xwininfo -id $window | grep "Height:" | awk '{print $2}'`
 
+sleep 0.3
 
 # move to left
 if [ "$x" -ge $next_monitor_x ]
