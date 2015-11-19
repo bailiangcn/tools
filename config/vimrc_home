@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年11月18日
+" Last Change:  2015年11月19日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -34,6 +34,7 @@ let addon_list += [ "vim-snippets"]
 let addon_list += [ "fcitx"]
 let addon_list += [ "Gundo"]
 let addon_list += [ "vim-gradle"]
+let addon_list += [ "sessionman"]
 
 " 和bash相关
 let addon_list += [ "bash-support"]
