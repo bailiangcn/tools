@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年11月13日
+" Last Change:  2015年11月19日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -363,7 +363,7 @@ let g:fuf_local_list=[]
     let g:fuf_local_list += [':exe ''"|   ctrl+l     --光标跳到右侧窗口                         tdycck jump right window --''|:exe "norm \<C-L>" ']
     let g:fuf_local_list += [':exe ''"|   ctrl+k     --光标跳到上方窗口                         tdsfco jump up window --''|:exe "norm \<C-K>" ']
     let g:fuf_local_list += [':exe ''"|   ctrl+j     --光标跳到下方窗口                         tdxfck jump down window --''|:exe "norm \<C-J>" ']
-    let g:fuf_local_list += [':exe ''"|   shift+F1   --筛选所有自定义的命令                     sxzdyml command --''|:exe ":cal RLC(1)" ']
+    let g:fuf_local_list += [':exe ''"|   F1   --筛选所有自定义的命令                     sxzdyml command --''|:exe ":cal RLC(1)" ']
     let g:fuf_local_list += [':exe ''"|   ctrl+F1    --筛选fuf插件命令                          sxcjml plugin command --''|:exe ":cal RLC(2)" ']
     let g:fuf_local_list += [':exe ''"|   ctrl+shift+left    --减少当前窗口宽度                 jianshaodangqianchuangkoukuandu now window width  --''|:exe "norm \<C-S-Left>" ']
     let g:fuf_local_list += [':exe ''"|   ctrl+shift+right   --增加当前窗口宽度                 zengjiadangqianchuangkoukuandu now window width  --''|:exe "norm \<C-S-right>" ']
@@ -385,8 +385,8 @@ let g:fuf_local_list=[]
     let g:fuf_local_list += [':exe ''"|   F7    flake8检查                                      flakejianchapython --''|:exe "norm \<F7>"']
 
 
-nnoremap <silent> <F1> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_local_list)<CR>
-nnoremap <silent> <S-F1> :call fuf#givencmd#launch('', 0, '选择命令>', GetAllCommands())<CR>
+nnoremap <silent> <S-F1> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_local_list)<CR>
+nnoremap <silent> <F1> :call fuf#givencmd#launch('', 0, '选择命令>', GetAllCommands())<CR>
 nnoremap <silent> <C-F1> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_com_list)<CR>
 vnoremap <silent> <C-F1> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_com_list)<CR>
 "}}}
@@ -432,6 +432,15 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "                                                                              "
 "                  根据文件类型不同专用插件的设置部分    {{{1                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 设置java"{{{
+"
+    " 设置run的快捷键,r
+      autocmd BufRead *.java map <leader>r :w<cr>:Java<cr>
+    " 设置格式化java代码的快捷键,F
+      autocmd BufRead *.java map <leader>F :%JavaFormat<cr>
+    " 设置F3 gradle test
+      autocmd BufRead *.java map <F4> :!gradle test<cr>
+""}}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
 "                     自定义的函数部分     {{{1                                "
