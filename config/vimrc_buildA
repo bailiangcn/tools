@@ -29,6 +29,7 @@ let addon_list += [ "fcitx"]
 let addon_list += [ "UltiSnips"]
 let addon_list += [ "vim-snippets"]
 let addon_list += [ "vim-gradle"]
+let addon_list += [ "sessionman"]
 
 
 " 和bash相关
