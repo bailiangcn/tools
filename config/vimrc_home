@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年11月19日
+" Last Change:  2015年11月29日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -592,6 +592,11 @@ autocmd FileType java set omnifunc=javacomplete#Complet "}}}
 "
 " }}}1
 "
+"--------启用代码折叠，用空格键来开关折叠   
+set foldenable           " 打开代码折叠  
+autocmd FileType java set foldmethod=syntax        " 选择代码折叠类型  
+set foldlevel=100            " 禁止自动折叠  
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>   
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
