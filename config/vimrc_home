@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年11月29日
+" Last Change:  2015年12月01日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -332,7 +332,7 @@ if count(addon_list,'taglist')
     nnoremap <silent> <F3> :TlistToggle<cr>
     "nnoremap <silent> <C-F3> :TlistOpen<cr>
     let Tlist_Highlight_Tag_On_BufEnter=0
-    let Tlist_Close_On_Select=1    "选择后自动关闭
+    let Tlist_Close_On_Select=0    "选择后自动关闭
     let Tlist_Process_File_Always = 1
     let Tlist_Exit_OnlyWindow=1    "只剩taglist窗口时关闭vim
     let Tlist_File_Fold_Auto_Close = 1
@@ -617,7 +617,10 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
     " 设置格式化java代码的快捷键,F
       autocmd BufRead *.java map <leader>F :%JavaFormat<cr>
       
-    " 设置F3 gradle test
+    " 设置F2 ProjectTreeToggle
+      autocmd BufRead *.java map <F2> :ProjectTreeToggle<cr>
+
+    " 设置F4 gradle test
       autocmd BufRead *.java map <F4> :w<cr>:!gradle test --daemon<cr>
 ""}}}
 
