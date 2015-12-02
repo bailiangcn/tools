@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年12月01日
+" Last Change:  2015年12月02日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -622,6 +622,11 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
 
     " 设置F4 gradle test
       autocmd BufRead *.java map <F4> :w<cr>:!gradle test --daemon<cr>
+
+    " 设置 eclim
+    nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+
+
 ""}}}
 
 " 设置python"{{{
