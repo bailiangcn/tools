@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年11月19日
+" Last Change:  2015年12月03日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -30,6 +30,7 @@ let addon_list += [ "UltiSnips"]
 let addon_list += [ "vim-snippets"]
 let addon_list += [ "vim-gradle"]
 let addon_list += [ "sessionman"]
+let addon_list += [ "taglist"]
 
 
 " 和bash相关
@@ -335,7 +336,24 @@ endif
 "设置Gundo快捷键,g"{{{
     map <leader>g :GundoToggle<cr>
 
+"}}}
 
+
+"
+" taglist"{{{
+"
+if count(addon_list,'taglist')
+    nnoremap <silent> <F3> :TlistToggle<cr>
+    "nnoremap <silent> <C-F3> :TlistOpen<cr>
+    let Tlist_Highlight_Tag_On_BufEnter=0
+    let Tlist_Close_On_Select=0    "选择后自动关闭
+    let Tlist_Process_File_Always = 1
+    let Tlist_Exit_OnlyWindow=1    "只剩taglist窗口时关闭vim
+    let Tlist_File_Fold_Auto_Close = 1
+    let Tlist_GainFocus_On_ToggleOpen = 1   "TlistToggle打开taglist时，输入焦点在taglist中
+	let Tlist_WinWidth = 40
+endif
+"}}}
 "                                                                                                                              
 " 本地vimrc的快捷列表                                                                                                          
 "                                                                                                                              
@@ -446,6 +464,15 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
       autocmd BufRead *.java map <leader>F :%JavaFormat<cr>
     " 设置F3 gradle test
       autocmd BufRead *.java map <F4> :!gradle test<cr>
+      
+    " 设置F2 ProjectTreeToggle
+      autocmd BufRead *.java map <F2> :ProjectTreeToggle<cr>
+      
+    " 设置 eclim
+      "nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+      autocmd BufRead *.java map <cr> :JavaSearchContext<cr>
+      
+
 ""}}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
