@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年12月02日
+" Last Change:  2015年12月09日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -250,11 +250,13 @@ autocmd BufNewFile *.md 0r ~/.vim/skeleton/meta.md
 " UltiSnips配置"{{{
 "
     "设置插件的本地目录
-    let g:UltiSnipsSnippetsDir="~/vim-addons/UltiSnips/UltiSnips/"
+    let g:UltiSnipsSnippetsDir="~/vim/UltiSnips/"
+    " 只使用UltiSnips目录下的代码块
+    let g:UltiSnipsEnableSnipMate = 0
     "设置编辑插件片段文本采用上下分割的方式
     let g:UltiSnipsEditSplit ="horizontal"
     "增加本地片段路径
-    let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+    "let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips"]
     " Set ultisnips triggers
      let g:UltiSnipsExpandTrigger="<tab>"                                            
      let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
