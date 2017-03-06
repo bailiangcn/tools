@@ -134,7 +134,7 @@ alias gvim="gvim -f 2>/dev/null"
 #complete -o filenames -F _root_command notify
 
 source ~/.local/bin/bashmarks.sh
-export PATH="/home/bl/bin:$PATH"
+export PATH="/home/bl/tools/bin:/home/bl/bin:$PATH"
 
 #### chsdir start ###
 #. $HOME/bin/chs_completion
@@ -142,18 +142,20 @@ export PATH="/home/bl/bin:$PATH"
 ##export CHSDIR="{'n':'l'}"
 #### chsdir finish. ###
 
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/ELC
-source /usr/local/bin/virtualenvwrapper.sh
-
-export LD_LIBRARY_PATH="/home/bl/pgmodeler-0.5.0"
-
 alias cnpm="npm --registry=http://r.cnpmjs.org \
 --cache=$HOME/.npm/.cache/cnpm \
 --disturl=http://cnpmjs.org/dist \
 --userconfig=$HOME/.cnpmrc"
 
-alias gowork='workon lovedq; cd ~/clirepo/lovedq/'
-alias god='workon lovedq; cd ~/clirepo/damonwx/'
-alias gotdd='workon TDD; cd ~/tddbook/'
-alias gooffice='workon lovedq; cd ~/OfficeTools/'
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_121
+
+export JRE_HOME=${JAVA_HOME}/jre
+
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+
+export PATH=${JAVA_HOME}/bin:$PATH
+
+export JDK_HOME=/home/bl/Android/Sdk
+
+export ANDROID_HOME=/home/bl/Android/Sdk
+

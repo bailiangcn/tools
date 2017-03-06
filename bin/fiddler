@@ -1,0 +1,4 @@
+#!/bin/bash
+# 执行fiddler
+cd /opt/fiddler/app/
+nohup mono Fiddler.exe >/dev/null 2>&1 &
