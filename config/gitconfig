@@ -10,8 +10,10 @@
 	email = bailiangcn@gmail.com
 [core]
 	editor = gvim
+	autocrlf = input
 [diff]
 	tool = meld
+	external = /home/bl/bin/git-meld.sh
 [merge]
 	tool = meld
 [color]
@@ -20,3 +22,5 @@
     ui=auto
 	diff = auto
 	interactive = auto
+[remote "prod"]
+            url = bl@192.168.1.77:/var/www/html/

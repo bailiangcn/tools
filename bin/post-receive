@@ -1,0 +1,12 @@
+#!/bin/sh
+
+unset GIT_DIR
+
+NowPath=`pwd`
+DeployPath="/home/bl/tk/"
+
+cd $DeployPath
+git pull orig master
+
+cd $NowPath
+exit 0
