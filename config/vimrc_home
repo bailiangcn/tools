@@ -3,7 +3,7 @@
 " 工作用的vimrc
 "
 " Maintainer:    白亮
-" Last Change:  2015年12月09日
+" Last Change:  2017年03月29日
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       必须放在头部的配置 {{{1                                "
@@ -12,38 +12,38 @@
 " 设置vim-addon-manager插件  {{{1
 "
 let addon_list=[]
-set runtimepath+=~/vim-addons/vim-addon-manager
-set runtimepath+=~/vim-addons/mysnip
+set runtimepath+=~/.vim/vim-addons/vim-addon-manager
+set runtimepath+=~/.vim/vim-addons/mysnip
 let addon_list += ["Colour_Sampler_Pack"]
 let addon_list += [ "ScrollColors" ]
 let addon_list += [ "FuzzyFinder"]
 let addon_list += [ "The_NERD_Commenter"]
 let addon_list += [ "surround"]
-let addon_list += [ "Markdown"]
+"let addon_list += [ "Markdown"]
 let addon_list += [ "fugitive"] 
 let addon_list += [ "EasyMotion"]
 let addon_list += [ "git-vim"]
 let addon_list += [ "ShowMarks"]
 let addon_list += [ "YankRing"]
-let addon_list += [ "taglist"]
+"let addon_list += [ "taglist"]
 let addon_list += [ "TaskList"]
-let addon_list += [ "L9"]
-"let addon_list += [ "Tagbar"]
+"let addon_list += [ "vim-l9"]
+""let addon_list += [ "Tagbar"]
 let addon_list += [ "UltiSnips"]
-let addon_list += [ "vim-snippets"]
+"let addon_list += [ "vim-snippets"]
 let addon_list += [ "fcitx"]
 let addon_list += [ "Gundo"]
-let addon_list += [ "vim-gradle"]
-let addon_list += [ "sessionman"]
+"let addon_list += [ "vim-gradle"]
+"let addon_list += [ "sessionman"]
 
 " 和bash相关
-let addon_list += [ "bash-support"]
+"let addon_list += [ "bash-support"]
 
 " 和python相关
-let addon_list += [ "vim-flake8"]
-let addon_list += [ "pytest"]
-let addon_list += [ "python_pydoc"]
-let addon_list += [ "indentpython%3461"]
+"let addon_list += [ "vim-flake8"]
+"let addon_list += [ "pytest"]
+"let addon_list += [ "python_pydoc"]
+"let addon_list += [ "indentpython%3461"]
 "需要安装,但是不需要激活,使用他的字典支持补全
 "let addon_list += [ "Pydiction"]
 

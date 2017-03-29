@@ -1,0 +1,5 @@
+#!/bin/bash
+# 执行nw
+
+cd /home/bl/nwjs-sdk-v0.21.3-linux-x64/
+./nw >/dev/null 2>&1 &

@@ -130,7 +130,7 @@ alias viim="vim "
 alias gvim="gvim -f 2>/dev/null"
 
 source ~/.local/bin/bashmarks.sh
-export PATH="/home/bl/bin:$PATH"
+export PATH="/home/bl/tools/bin:$PATH"
 
 #export WORKON_HOME=$HOME/.virtualenvs
 #export PROJECT_HOME=$HOME/workspace/pyss/tools
